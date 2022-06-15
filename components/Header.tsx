@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaCoffee, FaPlus } from 'react-icons/fa';
 import { HeaderContainer as Container } from '../styles/components/header';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -11,8 +11,8 @@ const Header: FC<Props> = (): JSX.Element => {
 	return (
 		<Container>
 			<h2 className='brand' onClick={() => router.push('/')}>
-				<FaPlus />
-				<span>Umino Delicias</span>
+				<FaCoffee/>
+				<span>MealBlast</span>
 			</h2>
 			<nav className='navbar'>
 				<ul>

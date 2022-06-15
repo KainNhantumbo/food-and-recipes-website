@@ -15,24 +15,26 @@ export const HeaderContainer = styled.header`
 	box-shadow: 0 0 12px rgba(${({ theme }) => theme.shadows}, 0.6);
 	z-index: 5000;
 	border-radius: 0 0 20px 20px;
+	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
 
 	.brand {
 		position: relative;
-		color: rgb(${({ theme }) => theme.primary});
+		color: rgb(${({ theme }) => theme.secondary});
 		cursor: pointer;
 
 		span {
 			font-weight: 600;
 			text-align: center;
 			font-size: 1.4rem;
+			padding-left: 50px;
 		}
 		svg {
 			position: absolute;
-			width: 18px;
-			height: 18px;
+			width: 38px;
+			height: 38px;
 			color: rgb(${({ theme }) => theme.alter});
-			right: -20px;
-			top: -1px;
+			left: 5px;
+			top: -8px;
 		}
 	}
 
