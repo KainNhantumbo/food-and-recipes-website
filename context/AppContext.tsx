@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { dark, primary } from '../themes/themes';
-import { useRouter } from 'next/router';
 interface AppContextProps {
 	themeSwitcher: () => void;
 }
@@ -52,16 +51,6 @@ const AppContext: React.FC<Props> = ({ children }) => {
 		setThemeSettings({ dark_mode: false });
 		localStorage.setItem('UminoSettings', JSON.stringify({ dark_mode: false }));
 	};
-
-	if (typeof window !== 'undefined') {
-		console.log('You are on the browser');
-		localStorage.setItem('data', JSON.stringify('donuts'));
-		// 👉️ can use localStorage here
-	} else {
-		console.log('You are on the server');
-		// 👉️ can't use localStorage
-	}
-	const router = useRouter()
 
 	useEffect(() => {
 		themePrefers();

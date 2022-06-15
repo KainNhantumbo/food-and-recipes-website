@@ -6,15 +6,8 @@ export const HomeContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	gap: 50px;
+	padding-top: 75px;
 
-	header {
-		text-align: center;
-		font-weight: 500;
-
-		h1 {
-			color: rgb(${({ theme }) => theme.primary});
-		}
-	}
 
 	.actions-container {
 		display: flex;

@@ -1,11 +1,11 @@
-import { ThemeObj } from "./ThemeTypes";
+import { ThemeObj } from './ThemeTypes';
 
 export const primary: ThemeObj = {
-	primary: '0, 174, 239',
-	secondary: '128, 102, 149',
-	alter:'205, 93, 125',
-	alterAlt:'234, 144, 122',
-	hover: '232, 240, 254',
+	primary: '81, 129, 0',
+	secondary: '77, 124, 95',
+	alter: '205, 93, 125',
+	alterAlt: '255, 243, 234',
+	hover: '215, 228, 217',
 	font: '95, 99, 104',
 	inner: '241, 243, 244',
 	text: '255, 255, 255',
@@ -17,8 +17,8 @@ export const primary: ThemeObj = {
 export const dark: ThemeObj = {
 	primary: '108, 161, 246',
 	secondary: '64, 52, 82',
-	alter:'205, 93, 125',
-	alterAlt:'234, 144, 122',
+	alter: '205, 93, 125',
+	alterAlt: '234, 144, 122',
 	hover: '88, 65, 83',
 	font: '178, 177, 185',
 	inner: '55, 55, 55',

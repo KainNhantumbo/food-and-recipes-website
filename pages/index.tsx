@@ -4,6 +4,7 @@ import IndexPage from '../components/Head';
 import { BiCog } from 'react-icons/bi';
 import { FaArrowRight } from 'react-icons/fa';
 import { HomeContainer as Container } from '../styles/home';
+import Header from '../components/Header';
 
 const Home: NextPage = () => {
 	const router = useRouter();
@@ -12,10 +13,7 @@ const Home: NextPage = () => {
 		<>
 			<IndexPage />
 			<Container>
-				<header>
-					<h1>Administração</h1>
-					<h2>O que vamos fazer hoje?</h2>
-				</header>
+				<Header />
 				<main>
 					<article className='actions-container'>
 						<div className='action'>
