@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function IndexPage() {
+export default function HeadPage() {
 	return (
 		<Head>
 			<meta name='author' content='Kain Nhantumbo' />
@@ -9,7 +9,7 @@ export default function IndexPage() {
 				content='Umino plus enterprises services application'
 			/>
 			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-			<title>Umino+ Services</title>
+			<title>Receitas do Kaynee</title>
 		</Head>
 	);
 }

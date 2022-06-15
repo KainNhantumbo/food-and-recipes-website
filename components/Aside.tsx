@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiCarousel, BiGridAlt } from 'react-icons/bi';
 import { FaEnvelopeOpen, FaLayerGroup, FaNewspaper } from 'react-icons/fa';
-import { AsideContainer as Container } from '../styles/recipes-blog/components/aside';
+import { AsideContainer as Container } from '../styles/components/aside';
 import Link from 'next/link';
 
 const Aside: React.FC = (): JSX.Element => {
