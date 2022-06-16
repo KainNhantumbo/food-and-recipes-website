@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { dark, primary } from '../themes/themes';
 interface AppContextProps {
 	themeSwitcher: () => void;
+	slidePageUp: () => void;
 }
 interface Props {
 	children: ReactNode;
@@ -13,7 +14,10 @@ interface ThemeSettings {
 	dark_mode: boolean;
 }
 
-const context = createContext<AppContextProps>({ themeSwitcher: () => {} });
+const context = createContext<AppContextProps>({
+	themeSwitcher: () => {},
+	slidePageUp: () => {},
+});
 const AppContext: React.FC<Props> = ({ children }) => {
 	const [themeSettings, setThemeSettings] = useState<ThemeSettings>({
 		dark_mode: false,
@@ -52,6 +56,15 @@ const AppContext: React.FC<Props> = ({ children }) => {
 		localStorage.setItem('UminoSettings', JSON.stringify({ dark_mode: false }));
 	};
 
+	// slides the page to the top
+	const slidePageUp = (): void => {
+		window.scrollTo({
+			left: 0,
+			top: 0,
+			behavior: 'smooth',
+		});
+	};
+
 	useEffect(() => {
 		themePrefers();
 	}, []);
@@ -62,6 +75,7 @@ const AppContext: React.FC<Props> = ({ children }) => {
 			<context.Provider
 				value={{
 					themeSwitcher,
+					slidePageUp,
 				}}
 			>
 				{children}

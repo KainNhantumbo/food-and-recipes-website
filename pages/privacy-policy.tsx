@@ -2,12 +2,14 @@ import { NextPage } from 'next';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import { PrivacyPolicyContainer as Container } from '../styles/privacy-policy';
+import PageLayout from '../components/PageLayout';
 
 const PrivacyPolicy: NextPage = (): JSX.Element => {
 	return (
 		<>
 			<HeadPage />
 			<Header />
+			<PageLayout/>
 			<Container>
 				<section>
 					<h1>Política de Privacidade</h1>

@@ -3,12 +3,14 @@ import type { AppProps } from 'next/app';
 import AppContext from '../context/AppContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { BiCheckCircle } from 'react-icons/bi';
+import { BiMoon } from 'react-icons/bi';
 import { AppContainer as Container } from '../styles/app';
+import { useAppContext } from '../context/AppContext';
+import { FaArrowUp, FaSun } from 'react-icons/fa';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [privacyAdvisor, setprivacyAdvisor] = useState<boolean>();
-	// advisor management
+	const { themeSwitcher } = useAppContext();
 
 	// controls the state of privacy advisor message
 	const advisorController = () => {
@@ -17,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	};
 
 	useEffect(() => {
+		// advisor management
 		const advisorState = JSON.parse(
 			localStorage.getItem('advisorState') || 'false'
 		);
@@ -24,7 +27,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 			localStorage.setItem('advisorState', JSON.stringify('true'));
 			setprivacyAdvisor(() => true);
 		}
-
 		if (advisorState === 'true') {
 			setprivacyAdvisor(() => true);
 		} else {
