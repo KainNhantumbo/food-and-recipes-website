@@ -91,12 +91,14 @@ export const FooterContainer = styled.footer`
 						padding: 10px;
 						line-height: 1.2rem;
 						outline: none;
+            background: rgb(${({ theme }) => theme.inner});
 						border-radius: 5px 0 0 5px;
 						@media screen and (max-width: 360px) {
 							width: 175px;
 						}
 						::placeholder {
 							font-size: 0.9rem;
+              font-weight: 500;
 						}
 					}
 				}

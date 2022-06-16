@@ -1,5 +1,4 @@
 import { FooterContainer } from '../styles/components/footer';
-import { BiSend } from 'react-icons/bi';
 import { useState } from 'react';
 import { FaNewspaper } from 'react-icons/fa';
 
@@ -10,10 +9,12 @@ const Footer = () => {
 				<div className='container'>
 					<div className='content'>
 						<h2>
-              <FaNewspaper/>
-              <span>Newsletter</span></h2>
+							<FaNewspaper />
+							<span>Newsletter</span>
+						</h2>
 						<p>
-							Seja notificado com as últimas públicações em seu e-mail ao se inscrever em nossa newsletter.
+							Seja notificado com as últimas novidades em seu e-mail ao se
+							inscrever em nossa newsletter.
 						</p>
 					</div>
 					<section className='form'>
@@ -21,8 +22,8 @@ const Footer = () => {
 							<input
 								type='email'
 								name='email'
-                autoComplete='email'
-                required
+								autoComplete='email'
+								required
 								placeholder='Digite o seu e-mail aqui...'
 								onChange={(e) => {}}
 							/>
@@ -70,9 +71,10 @@ const Footer = () => {
 				</section>
 
 				<div className='copyright'>
+					<p>&copy; Copyright 2022 MealBlast and Umino Plus.</p>
 					<span>
-						&copy; Copyright 2022 MealBlast and Umino Plus,{' '}
-						<address>Maputo - Moçambique.</address>{' '}
+						Todos os Direitos Reservados.{' '}
+						<address>Maputo - Moçambique.</address>
 					</span>
 				</div>
 			</section>

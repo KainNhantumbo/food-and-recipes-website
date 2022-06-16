@@ -38,7 +38,7 @@ export const ContactContainer = styled.div`
 		padding-left: 20px;
 
 		svg {
-			color: rgb(${({ theme }) => theme.primary});
+			color: rgb(${({ theme }) => theme.secondary});
 			position: absolute;
 			width: 18px;
 			height: 18px;
@@ -59,6 +59,11 @@ export const ContactContainer = styled.div`
 			top: 0px;
 		}
 	}
+	.contacts {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
 
 	.errorMessage {
 		color: rgb(${({ theme }) => theme.alter});
@@ -66,17 +71,15 @@ export const ContactContainer = styled.div`
 		font-weight: 500;
 	}
 
-	.contacts {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-	}
-
 	.messageForm {
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
 		gap: 10px;
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 0 25px rgba(${({ theme }) => theme.shadows}, 0.6);
+		background: rgb(${({ theme }) => theme.backgroundAlt});
 
 		h1 {
 			svg {
@@ -84,7 +87,22 @@ export const ContactContainer = styled.div`
 				width: 30px;
 				height: 30px;
 				left: 160px;
-				top: 0px;
+				top: -1px;
+			}
+		}
+
+		.form-control {
+			display: flex;
+			gap: 10px;
+
+			@media screen and (max-width: 520px) {
+				flex-flow: row wrap;
+			}
+
+			.form-item {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
 			}
 		}
 
@@ -100,26 +118,48 @@ export const ContactContainer = styled.div`
 			}
 
 			button {
+				border: none;
+				background: none;
+				border-radius: 5px;
+				position: relative;
+				padding: 7px 10px;
+				color: rgb(${({ theme }) => theme.text});
+				background: rgb(${({ theme }) => theme.secondary});
 				width: fit-content;
+				cursor: pointer;
+
+				:hover {
+					transform: scale(1.05);
+					transition: all 200ms ease-in-out;
+				}
+
+				svg {
+					width: 18px;
+					height: 18px;
+					position: absolute;
+					top: 7px;
+					right: 7px;
+					pointer-events: none;
+				}
+				span {
+					padding-right: 20px;
+					font-weight: 500;
+					pointer-events: none;
+				}
 			}
 
 			input,
 			textarea {
-				border: 2px solid rgb(${({ theme }) => theme.primary});
+				border: none;
 				border-radius: 5px;
-				padding: 5px;
+				padding: 10px;
 				resize: none;
 				background: rgb(${({ theme }) => theme.inner});
+				outline: none;
 
 				::placeholder {
-					font-size: 1rem;
-					font-style: italic;
-				}
-
-				:focus {
-					box-shadow: 0 0 10px rgb(${({ theme }) => theme.primary});
-					border: 2px solid rgb(${({ theme }) => theme.primary});
-					outline-color: rgb(${({ theme }) => theme.primary});
+					font-size: 0.9rem;
+					font-weight: 500;
 				}
 			}
 		}
