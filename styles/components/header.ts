@@ -89,6 +89,7 @@ export const HeaderContainer = styled.header`
 				flex-direction: column;
 				align-items: center;
 				margin-top: 40px;
+				display: none;
 			}
 			@media screen and (min-width: 580px) {
 				display: flex;
