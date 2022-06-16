@@ -3,13 +3,14 @@ import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import { PrivacyPolicyContainer as Container } from '../styles/privacy-policy';
 import PageLayout from '../components/PageLayout';
+import Footer from '../components/Footer';
 
 const PrivacyPolicy: NextPage = (): JSX.Element => {
 	return (
 		<>
 			<HeadPage />
 			<Header />
-			<PageLayout/>
+			<PageLayout />
 			<Container>
 				<section>
 					<h1>Política de Privacidade</h1>
@@ -255,6 +256,7 @@ const PrivacyPolicy: NextPage = (): JSX.Element => {
 					</p>
 				</article>
 			</Container>
+			<Footer />
 		</>
 	);
 };
