@@ -1,7 +1,7 @@
 import { FooterContainer } from '../styles/components/footer';
 import { BiSend } from 'react-icons/bi';
 import { useState } from 'react';
-import { FaArrowCircleRight, FaNewspaper } from 'react-icons/fa';
+import { FaNewspaper } from 'react-icons/fa';
 
 const Footer = () => {
 	return (
@@ -17,17 +17,19 @@ const Footer = () => {
 						</p>
 					</div>
 					<section className='form'>
-						<div>
+						<form>
 							<input
 								type='email'
 								name='email'
-								placeholder='Digite o e-mail aqui...'
+                autoComplete='email'
+                required
+								placeholder='Digite o seu e-mail aqui...'
 								onChange={(e) => {}}
 							/>
-							<button>
+							<button type='submit'>
 								<span>Enviar</span>
 							</button>
-						</div>
+						</form>
 					</section>
 				</div>
 			</section>

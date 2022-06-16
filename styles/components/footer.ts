@@ -15,11 +15,13 @@ export const FooterContainer = styled.footer`
 		flex-direction: column;
 		align-items: center;
 		gap: 12px;
+		margin: 0 10px;
 
 		.container {
 			display: flex;
 			justify-content: space-between;
 			width: 100%;
+			flex-direction: row;
 			max-width: 700px;
 			align-items: center;
 			gap: 10px;
@@ -27,66 +29,76 @@ export const FooterContainer = styled.footer`
 			padding: 20px 50px;
 			border-radius: 10px;
 
+			@media screen and (max-width: 715px) {
+				flex-direction: column;
+			}
+			@media screen and (max-width: 420px) {
+				padding: 20px 10px;
+			}
+
 			.content {
 				display: flex;
-				flex-direction: column;
+				flex-flow: column nowrap;
 				gap: 10px;
 
 				h2 {
 					font-size: 1.2rem;
 					font-weight: 500;
+					position: relative;
+					span {
+						padding-left: 25px;
+					}
+					svg {
+						position: absolute;
+						width: 20px;
+						height: 20px;
+						top: 0px;
+						left: 0;
+						color: rgb(${({ theme }) => theme.primary});
+					}
 				}
 				p {
-					line-height: 1.1rem;
+					line-height: 1.2rem;
 				}
 			}
 
 			.form {
-				div {
+				form {
 					display: flex;
-					gap: 5px;
 					justify-content: flex-start;
 					flex-flow: row nowrap;
 
-					input {
-						border: 2px solid rgb(${({ theme }) => theme.primary});
-						border-radius: 5px;
-						padding: 5px;
-
-						@media screen and (max-width: 305px) {
-							width: 175px;
+					button {
+						border: none;
+						background: rgb(${({ theme }) => theme.secondary});
+						font-size: 1rem;
+						padding: 0 10px;
+						color: rgb(${({ theme }) => theme.text});
+						border-radius: 0 5px 5px 0;
+						cursor: pointer;
+						span,
+						svg {
+							pointer-events: none;
 						}
-
-						::placeholder {
-							font-size: 1rem;
-						}
-
-						:focus {
-							box-shadow: 0 0 10px rgb(${({ theme }) => theme.primary});
-							border: 2px solid rgb(${({ theme }) => theme.primary});
-							outline-color: rgb(${({ theme }) => theme.primary});
+						:hover {
+							background: rgb(${({ theme }) => theme.primary});
+							transition: all 200ms ease;
 						}
 					}
-				}
-			}
-		}
 
-		section {
-			display: flex;
-			justify-content: flex-start;
-			flex-direction: column;
-			gap: 15px;
-
-			button {
-				font-size: 1rem;
-				border-radius: 5px;
-				cursor: pointer;
-				span,
-				svg {
-					pointer-events: none;
-				}
-				:hover {
-					box-shadow: 0 0 5px 1px rgb(${({ theme }) => theme.shadows});
+					input {
+						border: none;
+						padding: 10px;
+						line-height: 1.2rem;
+						outline: none;
+						border-radius: 5px 0 0 5px;
+						@media screen and (max-width: 360px) {
+							width: 175px;
+						}
+						::placeholder {
+							font-size: 0.9rem;
+						}
+					}
 				}
 			}
 		}
