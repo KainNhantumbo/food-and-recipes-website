@@ -8,17 +8,17 @@ export const PrivacyPolicyContainer = styled.div`
 	max-width: 750px;
 	margin: 0 auto;
 	padding: 80px 10px;
-	text-align: justify;
-
+  
 	section {
-		h1 {
-			font-size: 1.8rem;
+    h1 {
+      font-size: 1.8rem;
 			font-weight: 500;
 		}
 	}
-
+  
 	article {
-		line-height: 1.6rem;
+    line-height: 1.6rem;
+    text-align: justify;
 
 		h2 {
 			font-weight: 500;

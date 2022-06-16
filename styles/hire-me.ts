@@ -9,8 +9,6 @@ export const HireContainer = styled.div`
 	flex-direction: column;
 	gap: 20px;
   font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
-
-
 	line-height: 1.6rem;
 
 	em {

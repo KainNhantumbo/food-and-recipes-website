@@ -4,9 +4,10 @@ import AppContext from '../context/AppContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { BiCheckCircle } from 'react-icons/bi';
+import { AppContainer as Container } from '../styles/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
-	const [privacyAdvisor, setprivacyAdvisor] = useState();
+	const [privacyAdvisor, setprivacyAdvisor] = useState<boolean>();
 	// advisor management
 
 	// controls the state of privacy advisor message
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	};
 
 	useEffect(() => {
-		const advisorState = JSON.parse(localStorage.getItem('advisorState') || ``);
+		const advisorState = JSON.parse(
+			localStorage.getItem('advisorState') || 'false'
+		);
 		if (!advisorState) {
 			localStorage.setItem('advisorState', JSON.stringify('true'));
 			setprivacyAdvisor(() => true);
@@ -28,28 +31,29 @@ function MyApp({ Component, pageProps }: AppProps) {
 			setprivacyAdvisor(() => false);
 		}
 	}, []);
-  
+
 	return (
 		<AppContext>
-			<Component {...pageProps} />
-			{privacyAdvisor ? (
-				<section className='advisor'>
-					<div>
-						<span>
-							Ao usar a <strong>Hagira Brands</strong>, você concorda com os a
-							nossa{' '}
-							<a href='/privacy-policy'>
-								<strong>política de privacidade</strong>
-							</a>
-							.
-						</span>
-						<button onClick={advisorController}>
-							<BiCheckCircle />
-							<span>Aceitar</span>
-						</button>
-					</div>
-				</section>
-			) : null}
+			<Container>
+				<Component {...pageProps} />
+				{privacyAdvisor ? (
+					<section className='advisor'>
+						<div>
+							<span>
+								Ao navegar na <strong>MealBlast</strong>, você concorda com a
+								nossa{' '}
+								<a href='/privacy-policy'>
+									<strong>política de privacidade</strong>
+								</a>
+								.
+							</span>
+							<button onClick={advisorController}>
+								<span>Aceitar</span>
+							</button>
+						</div>
+					</section>
+				) : null}
+			</Container>
 		</AppContext>
 	);
 }
