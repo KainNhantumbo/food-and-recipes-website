@@ -8,6 +8,8 @@ export const HireContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+  font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
+
 
 	line-height: 1.6rem;
 
@@ -43,7 +45,7 @@ export const HireContainer = styled.div`
 			padding-left: 5px;
 		}
 		svg {
-			color: rgb(${({ theme }) => theme.primary});
+			color: rgb(${({ theme }) => theme.alter});
 			position: absolute;
 			width: 18px;
 			height: 18px;
