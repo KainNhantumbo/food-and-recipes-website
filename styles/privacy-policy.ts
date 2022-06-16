@@ -3,6 +3,12 @@ import styled from 'styled-components';
 export const PrivacyPolicyContainer = styled.div`
 	margin: 50px 0;
 	padding: 30px;
+	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
+	width: 100%;
+	max-width: 750px;
+	margin: 0 auto;
+	padding: 80px 10px;
+	text-align: justify;
 
 	section {
 		h1 {
