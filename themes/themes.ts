@@ -16,7 +16,7 @@ export const primary: ThemeObj = {
 
 export const dark: ThemeObj = {
 	primary: '108, 161, 246',
-	secondary: '64, 52, 82',
+	secondary: '77, 124, 95',
 	alter: '205, 93, 125',
 	alterAlt: '234, 144, 122',
 	hover: '88, 65, 83',

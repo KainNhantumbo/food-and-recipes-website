@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { FaCoffee, FaPlus } from 'react-icons/fa';
+import { FC, useState } from 'react';
+import { FaBars, FaCoffee } from 'react-icons/fa';
 import { HeaderContainer as Container } from '../styles/components/header';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,14 +8,24 @@ interface Props {}
 
 const Header: FC<Props> = (): JSX.Element => {
 	const router = useRouter();
+	const [isMenu, setIsMenu] = useState(false);
+
+	const toggleMenu = (): void => {
+		console.log(isMenu);
+		setIsMenu((prevValue) => !prevValue);
+	};
+
 	return (
 		<Container>
 			<h2 className='brand' onClick={() => router.push('/')}>
-				<FaCoffee/>
+				<FaCoffee />
 				<span>MealBlast</span>
 			</h2>
+			<button className='menu-btn' onClick={toggleMenu}>
+				<FaBars />
+			</button>
 			<nav className='navbar'>
-				<ul>
+				<ul style={{ display: isMenu ? 'none' : 'flex' }}>
 					<Link href={'/recipes-blog'}>
 						<li>
 							<span>Início</span>
