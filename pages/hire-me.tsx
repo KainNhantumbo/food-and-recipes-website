@@ -18,12 +18,14 @@ import {
 } from 'react-icons/di';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
+import PageLayout from '../components/PageLayout';
 
 const HireMe: NextPage = (): JSX.Element => {
 	return (
 		<>
 			<HeadPage />
 			<Header />
+			<PageLayout/>
 			<HireContainer>
 				<section className='intro'>
 					<h1>

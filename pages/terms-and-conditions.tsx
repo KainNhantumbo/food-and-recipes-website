@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
+import PageLayout from '../components/PageLayout';
 import { PrivacyPolicyContainer as Container } from '../styles/privacy-policy';
 
 const TermsConditions: NextPage = (): JSX.Element => {
@@ -8,6 +9,7 @@ const TermsConditions: NextPage = (): JSX.Element => {
 		<>
 			<HeadPage />
 			<Header />
+			<PageLayout />
 			<Container>
 				<section>
 					<h1>Termos e Condições</h1>

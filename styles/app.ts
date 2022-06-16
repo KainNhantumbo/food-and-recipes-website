@@ -28,21 +28,22 @@ export const AppContainer = styled.div`
 		}
 
 		button {
-			width: 30px;
-			height: 30px;
-			margin-top: 5px;
+			width: 32px;
+			height: 32px;
+			margin-top: 8px;
+			border: none;
 			display: grid;
+			background: rgba(${({ theme }) => theme.secondary}, 0.2);
+			border-radius: 10px;
 			backdrop-filter: blur(10px);
 			place-content: center;
 			position: relative;
+			cursor: pointer;
 
 			svg {
-				position: static;
-				width: 25px;
-				height: 25px;
-				position: absolute;
-				top: 2.5px;
-				left: 3px;
+				width: 24px;
+				height: 24px;
+				color: rgb(${({ theme }) => theme.secondary});
 			}
 		}
 		span {
