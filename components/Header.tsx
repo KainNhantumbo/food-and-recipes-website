@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { FaBars, FaCoffee } from 'react-icons/fa';
 import { HeaderContainer as Container } from '../styles/components/header';
 import { useRouter } from 'next/router';
@@ -9,23 +9,38 @@ interface Props {}
 const Header: FC<Props> = (): JSX.Element => {
 	const router = useRouter();
 	const [isMenu, setIsMenu] = useState(false);
+	const [screeenWidth, setScreeenWidth] = useState<number>();
 
 	const toggleMenu = (): void => {
-		console.log(isMenu);
-		setIsMenu((prevValue) => !prevValue);
+		setIsMenu(!isMenu);
 	};
+
+	const changeWidth = () => {
+		if (window.innerWidth > 580) {
+			setIsMenu(true);
+		} else {
+			setIsMenu(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('resize', changeWidth);
+		return () => {
+			window.removeEventListener('resize', changeWidth);
+		};
+	}, []);
 
 	return (
 		<Container>
 			<h2 className='brand' onClick={() => router.push('/')}>
 				<FaCoffee />
-				<span>MealBlast</span>
+				<span>MealRaptor</span>
 			</h2>
 			<button className='menu-btn' onClick={toggleMenu}>
 				<FaBars />
 			</button>
 			<nav className='navbar'>
-				<ul style={{ display: isMenu ? 'none' : 'flex' }}>
+				<ul style={{ display: isMenu ? 'flex' : 'none' }}>
 					<Link href={'/recipes-blog'}>
 						<li>
 							<span>Início</span>

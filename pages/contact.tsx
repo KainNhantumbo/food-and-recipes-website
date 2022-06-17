@@ -24,10 +24,9 @@ const Contact = () => {
 					</h1>
 					<h2>Como podemos ajudar?</h2>
 					<p>
-						Por favor use uma das formas de contacto descritas abaixo, clique no{' '}
-						<em>link</em> de e-mail ou use o<strong> formulário</strong> de
-						contacto mais abaixo se tiver questões de sobre os nossos produtos e
-						serviços.
+						Por favor use uma das formas de contacto descritas abaixo, clicando
+						no <em>link</em> de e-mail ou use o<strong> formulário</strong> de
+						contacto mais abaixo se tiver questões de sobre os nossos serviços.
 					</p>
 				</section>
 				<div className='contacts'>
@@ -63,7 +62,7 @@ const Contact = () => {
 									id='assunto'
 									name='subject'
 									maxLength={120}
-                  required
+									required
 									placeholder='Escreva o assunto'
 									onChange={(e) => {}}
 								/>
@@ -74,8 +73,8 @@ const Contact = () => {
 									type='text'
 									id='email'
 									name='email'
-                  autoComplete='.com'
-                  required
+									autoComplete='.com'
+									required
 									placeholder='Coloque o seu e-mail'
 									maxLength={30}
 									onChange={(e) => {}}
@@ -89,7 +88,7 @@ const Contact = () => {
 							cols={30}
 							rows={10}
 							maxLength={2500}
-              required
+							required
 							placeholder='Escreva a sua mensagem'
 							onChange={(e) => {}}
 						/>

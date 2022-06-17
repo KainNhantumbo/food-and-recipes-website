@@ -36,13 +36,27 @@ const Footer = () => {
 			</section>
 			<section className='footer-components'>
 				<section>
-					<h2>Loja</h2>
+					<h2>Navegação</h2>
 					<ul>
 						<li>
 							<a href='/'>Início</a>
 						</li>
 						<li>
+							<a href='/recipes'>Receitas</a>
+						</li>
+						<li>
+							<a href='/categories'>Categorias</a>
+						</li>
+						<li>
 							<a href='/about'>Sobre nós</a>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Suporte</h2>
+					<ul>
+						<li>
+							<a href='/hire-me'>Contratar serviços</a>
 						</li>
 						<li>
 							<a href='/contact'>Contacto</a>
@@ -52,20 +66,6 @@ const Footer = () => {
 						</li>
 						<li>
 							<a href='/terms-and-conditions'>Termos e Condições</a>
-						</li>
-					</ul>
-				</section>
-				<section>
-					<h2>Desenvolvedor</h2>
-					<ul>
-						<li>
-							<a href='/login'>Entrar</a>
-						</li>
-						<li>
-							<a href='/support'>Suporte</a>
-						</li>
-						<li>
-							<a href='/request-service'>Contratar serviços</a>
 						</li>
 					</ul>
 				</section>
