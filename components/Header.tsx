@@ -9,7 +9,6 @@ interface Props {}
 const Header: FC<Props> = (): JSX.Element => {
 	const router = useRouter();
 	const [isMenu, setIsMenu] = useState(false);
-	const [screeenWidth, setScreeenWidth] = useState<number>();
 
 	const toggleMenu = (): void => {
 		setIsMenu(!isMenu);
@@ -24,6 +23,7 @@ const Header: FC<Props> = (): JSX.Element => {
 	};
 
 	useEffect(() => {
+		changeWidth();
 		window.addEventListener('resize', changeWidth);
 		return () => {
 			window.removeEventListener('resize', changeWidth);
@@ -41,27 +41,27 @@ const Header: FC<Props> = (): JSX.Element => {
 			</button>
 			<nav className='navbar'>
 				<ul style={{ display: isMenu ? 'flex' : 'none' }}>
-					<Link href={'/recipes-blog'}>
+					<Link href={'/'}>
 						<li>
 							<span>Início</span>
 						</li>
 					</Link>
-					<Link href={'/recipes-blog'}>
+					<Link href={'/recipes'}>
 						<li>
 							<span>Receitas</span>
 						</li>
 					</Link>
-					<Link href={'/recipes-blog'}>
+					<Link href={'/categories'}>
 						<li>
 							<span>Categorias</span>
 						</li>
 					</Link>
-					<Link href={'/recipes-blog'}>
+					<Link href={'/contact'}>
 						<li>
 							<span>Contato</span>
 						</li>
 					</Link>
-					<Link href={'/recipes-blog'}>
+					<Link href={'/about'}>
 						<li>
 							<span>Sobre</span>
 						</li>

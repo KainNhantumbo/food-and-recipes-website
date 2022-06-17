@@ -15,7 +15,7 @@ export const HeaderContainer = styled.header`
 	backdrop-filter: blur(10px);
 	box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
 	z-index: 5000;
-	border-radius: 0 0 12px 12px;
+	border-radius: 0 0 20px 20px;
 	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
 
 	@media screen and (max-width: 730px) {

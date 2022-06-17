@@ -1,5 +1,6 @@
 import { FooterContainer } from '../styles/components/footer';
 import { useState } from 'react';
+import Link from 'next/link';
 import { FaNewspaper } from 'react-icons/fa';
 
 const Footer = () => {
@@ -39,16 +40,16 @@ const Footer = () => {
 					<h2>Navegação</h2>
 					<ul>
 						<li>
-							<a href='/'>Início</a>
+							<Link href='/'>Início</Link>
 						</li>
 						<li>
-							<a href='/recipes'>Receitas</a>
+							<Link href='/recipes'>Receitas</Link>
 						</li>
 						<li>
-							<a href='/categories'>Categorias</a>
+							<Link href='/categories'>Categorias</Link>
 						</li>
 						<li>
-							<a href='/about'>Sobre nós</a>
+							<Link href='/about'>Sobre nós</Link>
 						</li>
 					</ul>
 				</section>
@@ -56,16 +57,16 @@ const Footer = () => {
 					<h2>Suporte</h2>
 					<ul>
 						<li>
-							<a href='/hire-me'>Contratar serviços</a>
+							<Link href='/hire-me'>Contratar serviços</Link>
 						</li>
 						<li>
-							<a href='/contact'>Contacto</a>
+							<Link href='/contact'>Contacto</Link>
 						</li>
 						<li>
-							<a href='/privacy-policy'>Política de Privacidade</a>
+							<Link href='/privacy-policy'>Política de Privacidade</Link>
 						</li>
 						<li>
-							<a href='/terms-and-conditions'>Termos e Condições</a>
+							<Link href='/terms-and-conditions'>Termos e Condições</Link>
 						</li>
 					</ul>
 				</section>

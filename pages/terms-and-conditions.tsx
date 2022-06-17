@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import PageLayout from '../components/PageLayout';
@@ -121,6 +122,7 @@ const TermsConditions: NextPage = (): JSX.Element => {
 					</p>
 				</article>
 			</Container>
+			<Footer />
 		</>
 	);
 };

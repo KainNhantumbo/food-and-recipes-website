@@ -111,6 +111,7 @@ export const FooterContainer = styled.footer`
 		grid-template-columns: repeat(2, 1fr) 1.5fr;
 		gap: 30px 20px;
 		padding: 20px;
+		border-radius: 20px 20px 0 0;
 		background: rgb(${({ theme }) => theme.hover});
 		color: rgb(${({ theme }) => theme.font});
 

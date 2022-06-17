@@ -19,13 +19,14 @@ import {
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import PageLayout from '../components/PageLayout';
+import Footer from '../components/Footer';
 
 const HireMe: NextPage = (): JSX.Element => {
 	return (
 		<>
 			<HeadPage />
 			<Header />
-			<PageLayout/>
+			<PageLayout />
 			<HireContainer>
 				<section className='intro'>
 					<h1>
@@ -37,13 +38,14 @@ const HireMe: NextPage = (): JSX.Element => {
 						Gostaria de ter o seu próprio site, loja virtual ou aplicação web?
 					</p>
 					<p>
-						Este website é um exemplo de trabalho feito inteiramente por mim. Este
-						site foi desenvolvido com as melhores tecnologias para o
+						Este website é um exemplo de trabalho feito inteiramente por mim.
+						Este site foi desenvolvido com as melhores tecnologias para o
 						desenvolvimento de aplicações Web, de forma a garantir estabilidade,
 						rapidez e segurança para o cliente e seus usuários.
 					</p>
 					<p>
-						Estou sempre aberto para novas oportunidades, parcerias e desafios. Se gostou e pretente contratar-me para um serviço, por favor entre
+						Estou sempre aberto para novas oportunidades, parcerias e desafios.
+						Se gostou e pretente contratar-me para um serviço, por favor entre
 						em contacto através do e-mail abaixo ou use o{' '}
 						<a href='/contact'>
 							<strong>formulário</strong>
@@ -126,6 +128,7 @@ const HireMe: NextPage = (): JSX.Element => {
 					</div>
 				</section>
 			</HireContainer>
+			<Footer />
 		</>
 	);
 };

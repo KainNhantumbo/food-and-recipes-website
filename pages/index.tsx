@@ -6,6 +6,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import { HomeContainer as Container } from '../styles/home';
 import Header from '../components/Header';
 import PageLayout from '../components/PageLayout';
+import Footer from '../components/Footer';
 
 const Home: NextPage = () => {
 	const router = useRouter();
@@ -37,6 +38,7 @@ const Home: NextPage = () => {
 					</article>
 				</main>
 			</Container>
+			<Footer />
 		</>
 	);
 };
