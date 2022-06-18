@@ -45,13 +45,13 @@ const Categories: NextPage = (): JSX.Element => {
 			destination_url: '/categories/category=cupcakes',
 		},
 		{
-			label: 'Comida leve e fitness',
+			label: 'Comida leve e saudável',
 			image: fitness_meal,
 			image_alt: 'imagem de comida fitness',
 			destination_url: '/categories/category=fitness_meal',
 		},
 		{
-			label: 'Sopas leves e fitness',
+			label: 'Sopas leves e saudáveis',
 			image: fitness_soup,
 			image_alt: 'imagem de sopas fitness',
 			destination_url: '/categories/category=fitness_soup',
@@ -69,7 +69,7 @@ const Categories: NextPage = (): JSX.Element => {
 			destination_url: '/categories/category=other',
 		},
 		{
-			label: 'Vegetarian',
+			label: 'Comida vegetariana',
 			image: vegetarian,
 			image_alt: 'imagem de comida vegetariana',
 			destination_url: '/categories/category=vagetarian',
@@ -97,7 +97,7 @@ const Categories: NextPage = (): JSX.Element => {
 							return (
 								<section className='category' key={index}>
 									<Link href={destination_url}>
-										<div>
+										<div className='image-container'>
 											<Image
 												src={image}
 												alt={image_alt}

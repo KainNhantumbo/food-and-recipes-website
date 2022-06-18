@@ -31,4 +31,54 @@ export const CategoriesContainer = styled.main`
 			}
 		}
 	}
+
+	.base-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		align-items: center;
+		justify-items: center;
+		gap: 25px 10px;
+
+		.category {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			gap: 5px;
+			padding: 5px;
+			background: rgb(${({ theme }) => theme.backgroundAlt});
+			box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
+			border-radius: 12px;
+			cursor: pointer;
+			.image-container {
+				padding: 5px;
+				img {
+					border-radius: 12px;
+					:hover {
+						transform: scale(1.1);
+						transition: all 200ms ease;
+					}
+				}
+			}
+
+			h3 {
+				position: relative;
+				font-size: 0.9rem;
+				font-weight: 500;
+
+				span {
+					padding-left: 20px;
+				}
+
+				svg {
+					width: 18px;
+					height: 18px;
+					position: absolute;
+					top: 3px;
+					left: 0;
+					color: rgb(${({ theme }) => theme.alter});
+				}
+			}
+		}
+	}
 `;
