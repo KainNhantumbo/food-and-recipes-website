@@ -4,7 +4,7 @@ export const CategoriesContainer = styled.main`
 	width: 100%;
 	max-width: 750px;
 	margin: 0 auto;
-	padding: 80px 10px;
+	padding: 90px 10px;
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
@@ -38,6 +38,13 @@ export const CategoriesContainer = styled.main`
 		align-items: center;
 		justify-items: center;
 		gap: 25px 10px;
+
+		@media screen and (max-width: 715px) {
+			grid-template-columns: 1fr 1fr;
+		}
+		@media screen and (max-width: 490px) {
+			grid-template-columns: 1fr;
+		}
 
 		.category {
 			display: flex;
