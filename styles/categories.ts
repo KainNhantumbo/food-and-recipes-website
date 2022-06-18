@@ -57,6 +57,7 @@ export const CategoriesContainer = styled.main`
 			box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
 			border-radius: 12px;
 			cursor: pointer;
+      
 			.image-container {
 				padding: 5px;
 				img {

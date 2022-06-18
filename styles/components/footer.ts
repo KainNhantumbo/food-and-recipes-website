@@ -70,6 +70,7 @@ export const FooterContainer = styled.footer`
 
 					button {
 						border: none;
+						position: relative;
 						background: rgb(${({ theme }) => theme.secondary});
 						font-size: 1rem;
 						padding: 0 10px;
@@ -79,6 +80,19 @@ export const FooterContainer = styled.footer`
 						span,
 						svg {
 							pointer-events: none;
+						}
+
+						span {
+							padding-left: 16px;
+						}
+
+						svg {
+							color: rgb(${({ theme }) => theme.text});
+							position: absolute;
+							top: 10px;
+							left: 5px;
+							width: 16px;
+							height: 16px;
 						}
 						:hover {
 							background: rgb(${({ theme }) => theme.primary});
@@ -91,14 +105,20 @@ export const FooterContainer = styled.footer`
 						padding: 10px;
 						line-height: 1.2rem;
 						outline: none;
-            background: rgb(${({ theme }) => theme.inner});
+						background: rgb(${({ theme }) => theme.inner});
 						border-radius: 5px 0 0 5px;
+						::placeholder {
+							font-size: 0.9rem;
+							font-weight: 500;
+						}
 						@media screen and (max-width: 360px) {
 							width: 175px;
 						}
-						::placeholder {
-							font-size: 0.9rem;
-              font-weight: 500;
+						@media screen and (max-width: 310px) {
+							width: 145px;
+							::placeholder {
+								font-size: 0.8rem;
+							}
 						}
 					}
 				}

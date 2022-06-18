@@ -1,9 +1,11 @@
 import { FooterContainer } from '../styles/components/footer';
 import { useState } from 'react';
 import Link from 'next/link';
-import { FaNewspaper } from 'react-icons/fa';
+import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
 
 const Footer = () => {
+	const [subscriptor, setSubscriptor] = useState<string>('');
+
 	return (
 		<FooterContainer>
 			<section className='newsletter'>
@@ -25,10 +27,11 @@ const Footer = () => {
 								name='email'
 								autoComplete='email'
 								required
-								placeholder='Digite o seu e-mail aqui...'
-								onChange={(e) => {}}
+								placeholder='Digite o seu e-mail...'
+								onChange={(e) => setSubscriptor(e.target.value)}
 							/>
 							<button type='submit'>
+								<FaPaperPlane />
 								<span>Enviar</span>
 							</button>
 						</form>

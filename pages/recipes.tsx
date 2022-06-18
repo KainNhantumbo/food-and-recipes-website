@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
-import { BiCategoryAlt, BiRestaurant } from 'react-icons/bi';
+import { FaArrowCircleRight, FaSortAlphaDown } from 'react-icons/fa';
+import { BiDotsVertical, BiDotsVerticalRounded } from 'react-icons/bi';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
@@ -18,7 +19,8 @@ import Image from 'next/image';
 import PageLayout from '../components/PageLayout';
 
 interface CategoriesProps {
-	label: string;
+	title: string;
+	description: string;
 	image_alt: string;
 	image: StaticImageData;
 	destination_url: string;
@@ -27,55 +29,64 @@ interface CategoriesProps {
 const Recipes: NextPage = (): JSX.Element => {
 	const categoriesData: CategoriesProps[] = [
 		{
-			label: 'Bolos',
+			title: 'Bolos',
+			description: 'sdasd',
 			image: cakes,
 			image_alt: 'imagem de bolos',
 			destination_url: '/categories/category=cakes',
 		},
 		{
-			label: 'Cocktails',
+			title: 'Cocktails',
+			description: 'sdasd',
 			image: cocktails,
 			image_alt: 'imagem de cocktails',
 			destination_url: '/categories/category=cocktails',
 		},
 		{
-			label: 'Cupcakes',
+			title: 'Cupcakes',
+			description: 'sdasd',
 			image: cupcakes,
 			image_alt: 'imagem de cupcakes',
 			destination_url: '/categories/category=cupcakes',
 		},
 		{
-			label: 'Comida leve e saudável',
+			title: 'Comida leve e saudável',
+			description: 'sdasd',
 			image: fitness_meal,
 			image_alt: 'imagem de comida fitness',
 			destination_url: '/categories/category=fitness_meal',
 		},
 		{
-			label: 'Sopas leves e saudáveis',
+			title: 'Sopas leves e saudáveis',
+			description: 'sdasd',
 			image: fitness_soup,
 			image_alt: 'imagem de sopas fitness',
 			destination_url: '/categories/category=fitness_soup',
 		},
 		{
-			label: 'Mariscos',
+			title: 'Mariscos',
+			description: 'sdasd',
 			image: shellfish,
 			image_alt: 'imagem de mariscos',
 			destination_url: '/categories/category=shellfish',
 		},
 		{
-			label: 'Outros',
+			title: 'Outros',
+			description: 'sdasd',
 			image: other,
 			image_alt: 'imagem de comida diversa',
 			destination_url: '/categories/category=other',
 		},
 		{
-			label: 'Comida vegetariana',
+			title: 'Comida vegetariana',
+			description:
+				'sdasddgjdopfjpgdjkopfkdgpofkpgkodpofkgpodkfpgokdpofkgpodkpfogpdofkpgkd[fkpg][dal][fgd[lfg',
 			image: vegetarian,
 			image_alt: 'imagem de comida vegetariana',
 			destination_url: '/categories/category=vagetarian',
 		},
 	].sort((a, b) => {
-		if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+		if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
 		return -1;
 	});
 
@@ -87,32 +98,45 @@ const Recipes: NextPage = (): JSX.Element => {
 			<Container>
 				<section className='upper-container'>
 					<h2>
-						<BiCategoryAlt />
+						<FaSortAlphaDown />
 						<span>Todas as receitas</span>
 					</h2>
 				</section>
 				<article className='base-container'>
 					{categoriesData.map(
-						({ image, image_alt, label, destination_url }, index) => {
+						(
+							{ image, image_alt, title, description, destination_url },
+							index
+						) => {
 							return (
-								<section className='category' key={index}>
-									<Link href={destination_url}>
-										<div className='image-container'>
+								<section className='recipe' key={index}>
+									<FaArrowCircleRight className='arrow-icon' />
+									<div className='image-container'>
+										<Link href={destination_url}>
 											<Image
+												title={image_alt}
 												src={image}
 												alt={image_alt}
 												placeholder='blur'
-												width={200}
-												height={200}
+												width={50}
+												height={50}
 											/>
-										</div>
-									</Link>
-									<Link href={destination_url}>
-										<h3>
-											<BiRestaurant />
-											<span>{label}</span>
-										</h3>
-									</Link>
+										</Link>
+									</div>
+									<div className='info-container'>
+										<Link href={destination_url}>
+											<>
+												<h3>
+													<BiDotsVerticalRounded />
+													<span>{title}</span>
+												</h3>
+												<h4>
+													<BiDotsVerticalRounded />
+													<span>{description}</span>
+												</h4>
+											</>
+										</Link>
+									</div>
 								</section>
 							);
 						}

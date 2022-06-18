@@ -25,7 +25,7 @@ const About: NextPage = (): JSX.Element => {
 							me mimando com o fruto de suas habilidades na cozinha.
 						</p>
 						<p>
-							Sou desenvolvedor web e sempre quis ter o meu próprio website de
+							Sou desenvolvedor web e sempre quis construir o meu próprio website de
 							receitas, onde poderia partilhar os meus gostos e preferências e,
 							sem deixar de lado, o meu conhecimento sobre a área.
 						</p>
