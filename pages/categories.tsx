@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { BiCategory, BiCategoryAlt, BiGrid, BiGridAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiRestaurant } from 'react-icons/bi';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
@@ -70,16 +70,20 @@ const Categories: NextPage = (): JSX.Element => {
 		},
 		{
 			label: 'Vegetarian',
-			image: other,
+			image: vegetarian,
 			image_alt: 'imagem de comida vegetariana',
 			destination_url: '/categories/category=vagetarian',
 		},
-	];
+	].sort((a, b) => {
+		if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+		return -1;
+	});
+
 	return (
 		<>
 			<HeadPage />
 			<Header />
-			<PageLayout/>
+			<PageLayout />
 			<Container>
 				<section className='upper-container'>
 					<h2>
@@ -94,12 +98,21 @@ const Categories: NextPage = (): JSX.Element => {
 								<section className='category' key={index}>
 									<Link href={destination_url}>
 										<div>
-											<Image src={image} alt={image_alt} placeholder='blur' />
+											<Image
+												src={image}
+												alt={image_alt}
+												placeholder='blur'
+												width={200}
+												height={200}
+											/>
 										</div>
 									</Link>
 									<Link href={destination_url}>
-										<span>{label}</span>
-										</Link>
+										<h3>
+											<BiRestaurant />
+											<span>{label}</span>
+										</h3>
+									</Link>
 								</section>
 							);
 						}
