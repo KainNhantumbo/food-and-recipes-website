@@ -1,13 +1,16 @@
-import { FooterContainer } from '../styles/components/footer';
-import { useState } from 'react';
+import { FooterContainer as Container } from '../styles/components/footer';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
+interface Props {
+	color?: string;
+}
 
-const Footer = () => {
+const Footer: FC<Props> = ({}): JSX.Element => {
 	const [subscriptor, setSubscriptor] = useState<string>('');
 
 	return (
-		<FooterContainer>
+		<Container>
 			<section className='newsletter'>
 				<div className='container'>
 					<div className='content'>
@@ -82,7 +85,7 @@ const Footer = () => {
 					</span>
 				</div>
 			</section>
-		</FooterContainer>
+		</Container>
 	);
 };
 

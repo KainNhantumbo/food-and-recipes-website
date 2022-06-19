@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { FaArrowCircleRight, FaSortAlphaDown } from 'react-icons/fa';
-import { BiDotsVertical, BiDotsVerticalRounded } from 'react-icons/bi';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
