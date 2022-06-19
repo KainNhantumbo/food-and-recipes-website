@@ -38,8 +38,8 @@ export const RecipesContainer = styled.main`
 		gap: 10px;
 
 		.recipe {
-      display: grid;
-      grid-template-columns: 50px 80%;
+			display: grid;
+			grid-template-columns: 50px 80%;
 			border-radius: 12px;
 			gap: 5px;
 			position: relative;
@@ -48,9 +48,9 @@ export const RecipesContainer = styled.main`
 			box-shadow: 0 0 2px rgba(${({ theme }) => theme.shadows}, 0.6);
 			cursor: pointer;
 
-      @media screen and (max-width: 315px) {
-			grid-template-columns: 50px 60%;
-		}
+			@media screen and (max-width: 315px) {
+				grid-template-columns: 50px 60%;
+			}
 
 			:hover {
 				box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
@@ -70,7 +70,7 @@ export const RecipesContainer = styled.main`
 				padding: 5px;
 				img {
 					border-radius: 12px;
-          width: 50px;
+					width: 50px;
 					:hover {
 						transform: scale(1.1);
 						transition: all 200ms ease;

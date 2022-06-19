@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FaArrowUp, FaSun } from 'react-icons/fa';
+import { BiSun, BiUpArrowAlt } from 'react-icons/bi';
 import { useAppContext } from '../context/AppContext';
 import { AppContainer as Container } from '../styles/app';
 
@@ -10,10 +10,10 @@ const PageLayout: FC = (): JSX.Element => {
 			<section className='fluent-buttons'>
 				<div>
 					<button title='Trocar o tema' onClick={themeSwitcher}>
-						<FaSun />
+						<BiSun />
 					</button>
 					<button title='Ir ao topo' onClick={slidePageUp}>
-						<FaArrowUp />
+						<BiUpArrowAlt />
 					</button>
 				</div>
 			</section>

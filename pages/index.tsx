@@ -7,6 +7,9 @@ import PageLayout from '../components/PageLayout';
 import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
+import { FaClock, FaUser, FaUsers } from 'react-icons/fa';
+import { BiAlarm } from 'react-icons/bi';
+import Link from 'next/link';
 
 interface PostData {
 	cook_time: string;
@@ -52,25 +55,39 @@ const Home: NextPage<Props> = ({ data }) => {
 								image_alt,
 								image_url,
 							}) => (
-								<section key={_id} className='post'>
-									<section className='image'>
-										<img src={image} alt={image_alt} />
+								<Link href={`/post/${_id}`}>
+									<section key={_id} className='post'>
+										<section className='image'>
+											<img src={image} alt={image_alt} />
+										</section>
+										<section className='details-container'>
+											<h3 className='title' title={title}>
+												<span>{title}</span>
+											</h3>
+											<p title={description}>
+												{description.length > 70
+													? description.slice(0, 70) + '...'
+													: description}
+											</p>
+											<div className='chors'>
+												<section>
+													<h5>Pessoas</h5>
+													<h5>
+														<FaUser />
+														<span>{serving_yield} </span>
+													</h5>
+												</section>
+												<section>
+													<h4>Tempo</h4>
+													<h5>
+														<BiAlarm />
+														<span>14h 30min</span>
+													</h5>
+												</section>
+											</div>
+										</section>
 									</section>
-									<section className='details-container'>
-										<h3>
-											<span>{title}</span>
-										</h3>
-										<p>{description}</p>
-										<div className='chors'>
-											<h4>
-												<span>{serving_yield}</span>
-											</h4>
-											<h4>
-												<span>{cook_time}</span>
-											</h4>
-										</div>
-									</section>
-								</section>
+								</Link>
 							)
 						)}
 					</article>
