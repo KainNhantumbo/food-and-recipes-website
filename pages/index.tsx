@@ -7,9 +7,10 @@ import PageLayout from '../components/PageLayout';
 import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
-import { FaClock, FaUser, FaUsers } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaUser } from 'react-icons/fa';
 import { BiAlarm } from 'react-icons/bi';
 import Link from 'next/link';
+import { FormEvent } from 'react';
 
 interface PostData {
 	cook_time: string;
@@ -33,6 +34,15 @@ const Home: NextPage<Props> = ({ data }) => {
 	const posts = data.posts;
 	console.log(posts);
 
+	async function searchData(e: FormEvent<HTMLFormElement>) {
+		try {
+			e.preventDefault();
+			console.log(e);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	return (
 		<>
 			<HeadPage />
@@ -40,9 +50,18 @@ const Home: NextPage<Props> = ({ data }) => {
 			<PageLayout />
 			<Container>
 				<section className='illustration-container'></section>
-				<section className='toolbar-container'></section>
+				<section className='toolbar-container'>
+					<form onSubmit={searchData}>
+						<input type='text' placeholder='Pesquisar receita' />
+						<button type='submit'>
+							<FaSearch />
+						</button>
+						<button type='reset'>
+							<FaTimes />
+						</button>
+					</form>
+				</section>
 				<div className='main-container'>
-					<aside className='aside-container'></aside>
 					<article className='posts-container'>
 						{posts.map(
 							({

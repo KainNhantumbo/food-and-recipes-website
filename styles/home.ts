@@ -10,13 +10,29 @@ export const HomeContainer = styled.main`
 	gap: 30px;
 	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
 	line-height: 1.6rem;
-	/* background: rgb(${({ theme }) => theme.background_alter}); */
+	max-width: 850px;
+
+	.toolbar-container {
+		display: flex;
+		justify-content: center;
+		flex-flow: row wrap;
+		padding: 10px;
+		border-radius: 10px;
+		background: rgb(${({ theme }) => theme.background_alter});
+
+		form {
+			padding: 10px;
+			position: relative;
+		}
+	}
 
 	.main-container {
+		display: flex;
+		justify-content: center;
+
 		.posts-container {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			max-width: 850px;
 			gap: 20px;
 			align-items: center;
 			justify-content: center;
@@ -36,7 +52,7 @@ export const HomeContainer = styled.main`
 				position: relative;
 				background: rgb(${({ theme }) => theme.backgroundAlt});
 				box-shadow: 0 0 25px rgba(${({ theme }) => theme.shadows}, 0.6);
-	
+
 				user-select: none;
 
 				img {
@@ -113,7 +129,6 @@ export const HomeContainer = styled.main`
 
 					.chors {
 						section {
-
 						}
 					}
 				}
