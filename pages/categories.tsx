@@ -10,6 +10,7 @@ import cupcakes from '../assets/cupcakes.jpg';
 import fitness_meal from '../assets/fitness.jpg';
 import fitness_soup from '../assets/light-soups.jpg';
 import shellfish from '../assets/shellfish.jpg';
+import biscuits from '../assets/biscuits.jpg';
 import other from '../assets/variants.jpg';
 import vegetarian from '../assets/vegetarian.jpg';
 import { StaticImageData } from 'next/image';
@@ -31,6 +32,12 @@ const Categories: NextPage = (): JSX.Element => {
 			image: cakes,
 			image_alt: 'imagem de bolos',
 			destination_url: '/categories/category=cakes',
+		},
+		{
+			label: 'Biscoitos',
+			image: biscuits,
+			image_alt: 'imagem de biscoitos',
+			destination_url: '/categories/category=biscuits',
 		},
 		{
 			label: 'Cocktails',
@@ -63,7 +70,7 @@ const Categories: NextPage = (): JSX.Element => {
 			destination_url: '/categories/category=shellfish',
 		},
 		{
-			label: 'Outros',
+			label: 'Comida diversa',
 			image: other,
 			image_alt: 'imagem de comida diversa',
 			destination_url: '/categories/category=other',
