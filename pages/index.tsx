@@ -8,9 +8,9 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import { FaSearch, FaTimes, FaUser } from 'react-icons/fa';
-import { BiAlarm } from 'react-icons/bi';
+import { BiAlarm, BiRestaurant, BiSearch } from 'react-icons/bi';
 import Link from 'next/link';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 
 interface PostData {
 	cook_time: string;
@@ -33,6 +33,7 @@ const Home: NextPage<Props> = ({ data }) => {
 	const router = useRouter();
 	const posts = data.posts;
 	console.log(posts);
+	const [isClearButton, setIsClearButton] = useState(false);
 
 	async function searchData(e: FormEvent<HTMLFormElement>) {
 		try {
@@ -51,14 +52,28 @@ const Home: NextPage<Props> = ({ data }) => {
 			<Container>
 				<section className='illustration-container'></section>
 				<section className='toolbar-container'>
+					<h2>
+						<BiRestaurant />
+						<span>Receitas</span>
+					</h2>
 					<form onSubmit={searchData}>
-						<input type='text' placeholder='Pesquisar receita' />
-						<button type='submit'>
-							<FaSearch />
-						</button>
-						<button type='reset'>
-							<FaTimes />
-						</button>
+						<BiSearch className='search-icon' />
+						<input
+							type='text'
+							placeholder='Pesquisar receita'
+							onChange={(e) => {
+								if (e.target.value.length > 0) {
+									setIsClearButton(true);
+								} else {
+									setIsClearButton(false);
+								}
+							}}
+						/>
+						{isClearButton ? (
+							<button type='reset'>
+								<FaTimes />
+							</button>
+						) : null}
 					</form>
 				</section>
 				<div className='main-container'>

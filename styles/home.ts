@@ -10,19 +10,82 @@ export const HomeContainer = styled.main`
 	gap: 30px;
 	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
 	line-height: 1.6rem;
-	max-width: 850px;
+	background: rgb(${({ theme }) => theme.background_alter});
+	border-radius: 20px;
+	margin-bottom: 50px;
 
 	.toolbar-container {
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		flex-flow: row wrap;
-		padding: 10px;
-		border-radius: 10px;
-		background: rgb(${({ theme }) => theme.background_alter});
+		gap: 50px;
+		padding: 0 10px;
+
+		@media screen and (max-width: 750px) {
+			gap: 15px;
+		}
+
+		h2 {
+			font-size: 1.4rem;
+			font-weight: 500;
+			position: relative;
+
+			svg {
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				left: 0px;
+				top: 0px;
+				color: rgba(${({ theme }) => theme.primary}, 0.9);
+			}
+
+			span {
+				padding-left: 35px;
+			}
+		}
+
+		/* max-width: 850px; */
 
 		form {
-			padding: 10px;
 			position: relative;
+			display: flex;
+			justify-content: flex-start;
+
+			input {
+				border: none;
+				border: 2px solid rgba(${({ theme }) => theme.font}, 0.2);
+				background: rgb(${({ theme }) => theme.background_alter});
+				padding: 5px;
+				padding-left: 35px;
+				line-height: 1.2rem;
+				border-radius: 20px;
+				width: 400px;
+				outline: none;
+			}
+
+			.search-icon {
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				left: 10px;
+				top: 8px;
+				color: rgba(${({ theme }) => theme.font}, 0.5);
+			}
+
+			button {
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				top: 8px;
+				right: 10px;
+				border: none;
+				padding: 5px;
+				background: rgb(${({ theme }) => theme.secondary});
+				color: rgb(${({ theme }) => theme.text});
+				display: grid;
+				place-content: center;
+				border-radius: 50%;
+			}
 		}
 	}
 
@@ -77,6 +140,7 @@ export const HomeContainer = styled.main`
 						text-overflow: ellipsis;
 						overflow: hidden;
 						font-weight: 500;
+						color: rgb(${({ theme }) => theme.secondary});
 						cursor: pointer;
 					}
 
@@ -90,12 +154,6 @@ export const HomeContainer = styled.main`
 						justify-content: space-around;
 						font-size: 0.9rem;
 						cursor: pointer;
-
-						section {
-							display: flex;
-							flex-direction: column;
-							align-items: center;
-						}
 
 						h5 {
 							position: relative;
@@ -129,6 +187,9 @@ export const HomeContainer = styled.main`
 
 					.chors {
 						section {
+							display: flex;
+							flex-direction: column;
+							align-items: center;
 						}
 					}
 				}
