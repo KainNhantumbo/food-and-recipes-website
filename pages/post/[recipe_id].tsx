@@ -37,7 +37,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 			<Header />
 			<PageLayout />
 			<Container>
-				
+				<section className='upper-container'>
+					
+				</section>
 			</Container>
 			<Footer />
 		</>

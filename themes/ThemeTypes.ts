@@ -9,5 +9,6 @@ export interface ThemeObj {
 	shadows: string;
 	hover: string;
 	background: string;
+	background_alter: string
 	backgroundAlt: string;
 }

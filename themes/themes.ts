@@ -11,6 +11,7 @@ export const primary: ThemeObj = {
 	text: '255, 255, 255',
 	shadows: '197, 197, 198',
 	background: '255, 255, 255',
+	background_alter: '245, 243, 239',
 	backgroundAlt: '255, 255, 255',
 };
 
@@ -25,5 +26,6 @@ export const dark: ThemeObj = {
 	text: '240, 240,240',
 	shadows: '25, 25, 28',
 	background: '32, 33, 36',
+	background_alter: '32, 33, 36',
 	backgroundAlt: '41, 42, 46',
 };
