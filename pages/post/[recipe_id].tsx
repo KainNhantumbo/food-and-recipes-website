@@ -24,6 +24,7 @@ import {
 	HiViewGrid,
 } from 'react-icons/hi';
 import Link from 'next/link';
+import Error from 'next/error';
 
 interface PostData {
 	cook_time: string;
@@ -41,12 +42,14 @@ interface PostData {
 }
 
 interface Props {
-	locale: [];
 	data: { post: PostData };
 }
 
 const Post: NextPage<Props> = ({ data }): JSX.Element => {
 	const router = useRouter();
+	if (!data) {
+		return <Error statusCode={500} />;
+	}
 	const post = data.post;
 	console.log(post);
 

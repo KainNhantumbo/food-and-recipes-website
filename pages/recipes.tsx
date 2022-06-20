@@ -1,94 +1,44 @@
-import { NextPage } from 'next';
-import { FaArrowCircleRight, FaSortAlphaDown } from 'react-icons/fa';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { NextPage, NextPageContext } from 'next';
+import { FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import { RecipesContainer as Container } from '../styles/recipes';
-import cakes from '../assets/cakes.jpg';
-import cocktails from '../assets/cocktails.jpg';
-import cupcakes from '../assets/cupcakes.jpg';
-import fitness_meal from '../assets/fitness.jpg';
-import fitness_soup from '../assets/light-soups.jpg';
-import shellfish from '../assets/shellfish.jpg';
-import other from '../assets/variants.jpg';
-import vegetarian from '../assets/vegetarian.jpg';
-import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import Image from 'next/image';
 import PageLayout from '../components/PageLayout';
+import { base_api_url } from '../utils/utils';
+import { useRouter } from 'next/router';
+import Error from 'next/error';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { HiArrowCircleRight } from 'react-icons/hi';
+import useSWR, { Fetcher } from 'swr';
+import { URL } from 'url';
 
-interface CategoriesProps {
+interface PostData {
+	_id: string;
 	title: string;
-	description: string;
 	image_alt: string;
-	image: StaticImageData;
-	destination_url: string;
+	image_url: string;
+	description: string;
+	image: string;
 }
 
 const Recipes: NextPage = (): JSX.Element => {
-	const categoriesData: CategoriesProps[] = [
-		{
-			title: 'Bolos',
-			description: 'sdasd',
-			image: cakes,
-			image_alt: 'imagem de bolos',
-			destination_url: '/categories/category=cakes',
-		},
-		{
-			title: 'Cocktails',
-			description: 'sdasd',
-			image: cocktails,
-			image_alt: 'imagem de cocktails',
-			destination_url: '/categories/category=cocktails',
-		},
-		{
-			title: 'Cupcakes',
-			description: 'sdasd',
-			image: cupcakes,
-			image_alt: 'imagem de cupcakes',
-			destination_url: '/categories/category=cupcakes',
-		},
-		{
-			title: 'Comida leve e saudável',
-			description: 'sdasd',
-			image: fitness_meal,
-			image_alt: 'imagem de comida fitness',
-			destination_url: '/categories/category=fitness_meal',
-		},
-		{
-			title: 'Sopas leves e saudáveis',
-			description: 'sdasd',
-			image: fitness_soup,
-			image_alt: 'imagem de sopas fitness',
-			destination_url: '/categories/category=fitness_soup',
-		},
-		{
-			title: 'Mariscos',
-			description: 'sdasd',
-			image: shellfish,
-			image_alt: 'imagem de mariscos',
-			destination_url: '/categories/category=shellfish',
-		},
-		{
-			title: 'Outros',
-			description: 'sdasd',
-			image: other,
-			image_alt: 'imagem de comida diversa',
-			destination_url: '/categories/category=other',
-		},
-		{
-			title: 'Comida vegetariana',
-			description:
-				'sdasddgjdopfjpgdjkopfkdgpofkpgkodpofkgpodkfpgokdpofkgpodkpfogpdofkpgkd[fkpg][dal][fgd[lfg',
-			image: vegetarian,
-			image_alt: 'imagem de comida vegetariana',
-			destination_url: '/categories/category=vagetarian',
-		},
-	].sort((a, b) => {
-		if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
-		return -1;
-	});
+	const router = useRouter();
+	const fetcher = (args: URL | RequestInfo) =>
+		fetch(args).then((res) => res.json());
+
+	const { data } = useSWR(
+		`${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url`,
+		fetcher
+	);
+	if (!data) {
+		return <Error statusCode={500} />;
+	}
+
+	const posts: PostData[] = data.posts;
+	console.log(posts);
 
 	return (
 		<>
@@ -103,44 +53,32 @@ const Recipes: NextPage = (): JSX.Element => {
 					</h2>
 				</section>
 				<article className='base-container'>
-					{categoriesData.map(
-						(
-							{ image, image_alt, title, description, destination_url },
-							index
-						) => {
-							return (
-								<section className='recipe' key={index}>
-									<FaArrowCircleRight className='arrow-icon' />
-									<div className='image-container'>
-										<Link href={destination_url}>
-											<Image
-												title={image_alt}
-												src={image}
-												alt={image_alt}
-												placeholder='blur'
-												width={50}
-												height={50}
-											/>
-										</Link>
-									</div>
-									<div className='info-container'>
-										<Link href={destination_url}>
-											<>
-												<h3>
-													<BiDotsVerticalRounded />
-													<span>{title}</span>
-												</h3>
-												<h4>
-													<BiDotsVerticalRounded />
-													<span>{description}</span>
-												</h4>
-											</>
-										</Link>
-									</div>
-								</section>
-							);
-						}
-					)}
+					{posts.map(({ _id, image, image_alt, title, description }) => {
+						return (
+							<section className='recipe' key={_id}>
+								<HiArrowCircleRight className='arrow-icon' />
+								<div className='image-container'>
+									<Link href={`/post/${_id}`}>
+										<img title={image_alt} src={image} width={50} height={50} />
+									</Link>
+								</div>
+								<div className='info-container'>
+									<Link href={`/post/${_id}`}>
+										<>
+											<h3>
+												<BiDotsVerticalRounded />
+												<span>{title}</span>
+											</h3>
+											<h4>
+												<BiDotsVerticalRounded />
+												<span>{description}</span>
+											</h4>
+										</>
+									</Link>
+								</div>
+							</section>
+						);
+					})}
 				</article>
 			</Container>
 			<Footer />

@@ -3,6 +3,7 @@ import { FaBars, FaCoffee } from 'react-icons/fa';
 import { HeaderContainer as Container } from '../styles/components/header';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface Props {}
 
@@ -36,35 +37,54 @@ const Header: FC<Props> = (): JSX.Element => {
 				<FaCoffee />
 				<span>MealRaptor</span>
 			</h2>
-			<button className='menu-btn' onClick={toggleMenu}>
+			<motion.button
+				whileTap={{ scale: 0.5 }}
+				className='menu-btn'
+				onClick={toggleMenu}
+			>
 				<FaBars />
-			</button>
+			</motion.button>
 			<nav className='navbar'>
 				<ul style={{ display: isMenu ? 'flex' : 'none' }}>
 					<Link href={'/'}>
-						<li>
+						<motion.li
+							whileTap={{ scale: 0.7 }}
+							whileHover={{ scale: 1.1, y: 2 }}
+						>
 							<span>Início</span>
-						</li>
+						</motion.li>
 					</Link>
 					<Link href={'/recipes'}>
-						<li>
+						<motion.li
+							whileTap={{ scale: 0.7 }}
+							whileHover={{ scale: 1.1, y: 2 }}
+						>
 							<span>Receitas</span>
-						</li>
+						</motion.li>
 					</Link>
 					<Link href={'/categories'}>
-						<li>
+						<motion.li
+							whileTap={{ scale: 0.7 }}
+							whileHover={{ scale: 1.1, y: 2 }}
+						>
 							<span>Categorias</span>
-						</li>
+						</motion.li>
 					</Link>
 					<Link href={'/contact'}>
-						<li>
+						<motion.li
+							whileTap={{ scale: 0.7 }}
+							whileHover={{ scale: 1.1, y: 2 }}
+						>
 							<span>Contato</span>
-						</li>
+						</motion.li>
 					</Link>
 					<Link href={'/about'}>
-						<li>
+						<motion.li
+							whileTap={{ scale: 0.7 }}
+							whileHover={{ scale: 1.1, y: 2 }}
+						>
 							<span>Sobre</span>
-						</li>
+						</motion.li>
 					</Link>
 				</ul>
 			</nav>

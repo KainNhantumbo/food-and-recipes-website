@@ -36,20 +36,15 @@ export const HeaderContainer = styled.header`
 		top: 20px;
 		right: 20px;
 		display: none;
+		padding: 5px;
 
 		@media screen and (max-width: 580px) {
 			display: block;
 		}
 
-		:hover {
-			color: rgb(${({ theme }) => theme.alter});
-			transition: all 200ms ease-in-out;
-		}
-
 		svg {
 			width: 25px;
-			height: 25px;
-			pointer-events: none;
+			height: 25px; pointer-events: none;
 		}
 	}
 
@@ -106,8 +101,6 @@ export const HeaderContainer = styled.header`
 				:hover {
 					color: rgb(${({ theme }) => theme.alter});
 					cursor: pointer;
-					transform: scale(1.1);
-					transition: all 200ms ease;
 				}
 			}
 		}

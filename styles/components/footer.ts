@@ -96,7 +96,7 @@ export const FooterContainer = styled.footer`
 						}
 						:hover {
 							background: rgb(${({ theme }) => theme.primary});
-							transition: all 200ms ease;
+							transition: all 300ms ease;
 						}
 					}
 

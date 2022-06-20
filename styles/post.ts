@@ -82,7 +82,7 @@ export const PostContainer = styled.main`
 			display: flex;
 			justify-content: flex-start;
 			flex-direction: column;
-			gap: 25px;
+			gap: 12px;
 
 			.post-section {
 				line-height: 1.6rem;

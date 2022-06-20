@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { FaTimes, FaUser } from 'react-icons/fa';
 import { BiAlarm, BiRestaurant, BiSearch } from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
+import Error from 'next/error';
 
 interface PostData {
 	cook_time: string;
@@ -18,7 +19,6 @@ interface PostData {
 	image_alt: string;
 	image_url: string;
 	serving_yield: string;
-	category: string;
 	description: string;
 	image: string;
 	_id: string;
@@ -30,8 +30,13 @@ interface Props {
 
 const Home: NextPage<Props> = ({ data }) => {
 	const router = useRouter();
+	if (!data) {
+		return <Error statusCode={500} />;
+	}
+
 	const posts = data.posts;
 	console.log(posts);
+
 	const [isClearButton, setIsClearButton] = useState(false);
 
 	async function searchData(e: FormEvent<HTMLFormElement>) {
@@ -49,9 +54,7 @@ const Home: NextPage<Props> = ({ data }) => {
 			<Header />
 			<PageLayout />
 			<Container>
-				<section className='slide-container'>
-					
-				</section>
+				<section className='slide-container'></section>
 				<section className='toolbar-container'>
 					<h2>
 						<BiRestaurant />
@@ -90,8 +93,8 @@ const Home: NextPage<Props> = ({ data }) => {
 								image_alt,
 								image_url,
 							}) => (
-								<Link href={`/post/${_id}`}>
-									<section key={_id} className='post'>
+								<Link key={_id} href={`/post/${_id}`}>
+									<section className='post'>
 										<section className='image'>
 											<img src={image} alt={image_alt} />
 										</section>
@@ -135,14 +138,19 @@ const Home: NextPage<Props> = ({ data }) => {
 
 export async function getServerSideProps(context: NextPageContext) {
 	try {
-		const response = await fetch(`${base_api_url}/recipes/posts`);
+		const response = await fetch(
+			`${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url`
+		);
 		const data = await response.json();
 
 		return {
-			props: { locale: context.query, data },
+			props: { data },
 		};
 	} catch (err) {
 		console.log(err);
+		return {
+			props: {},
+		};
 	}
 }
 export default Home;
