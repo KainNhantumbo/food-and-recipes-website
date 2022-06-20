@@ -2,6 +2,7 @@ import { FooterContainer as Container } from '../styles/components/footer';
 import { FC, useState } from 'react';
 import Link from 'next/link';
 import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 interface Props {
 	color?: string;
 }
@@ -45,35 +46,35 @@ const Footer: FC<Props> = ({}): JSX.Element => {
 				<section>
 					<h2>Navegação</h2>
 					<ul>
-						<li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/'>Início</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/recipes'>Receitas</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/categories'>Categorias</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/about'>Sobre nós</Link>
-						</li>
+						</motion.li>
 					</ul>
 				</section>
 				<section>
 					<h2>Suporte</h2>
 					<ul>
-						<li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/hire-me'>Contratar serviços</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/contact'>Contacto</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/privacy-policy'>Política de Privacidade</Link>
-						</li>
-						<li>
+						</motion.li>
+						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/terms-and-conditions'>Termos e Condições</Link>
-						</li>
+						</motion.li>
 					</ul>
 				</section>
 

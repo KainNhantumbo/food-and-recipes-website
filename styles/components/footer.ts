@@ -151,6 +151,7 @@ export const FooterContainer = styled.footer`
 
 			li {
 				line-height: 1.6rem;
+				width: fit-content;
 				:hover {
 					color: rgb(${({ theme }) => theme.primary});
 				}
