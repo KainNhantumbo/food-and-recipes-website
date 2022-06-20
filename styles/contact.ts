@@ -127,11 +127,6 @@ export const ContactContainer = styled.div`
 				width: fit-content;
 				cursor: pointer;
 
-				:hover {
-					transform: scale(1.05);
-					transition: all 200ms ease-in-out;
-				}
-
 				svg {
 					width: 18px;
 					height: 18px;

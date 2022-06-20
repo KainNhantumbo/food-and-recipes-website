@@ -3,11 +3,8 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-interface Props {
-	color?: string;
-}
 
-const Footer: FC<Props> = ({}): JSX.Element => {
+const Footer: FC = ({}): JSX.Element => {
 	const [subscriptor, setSubscriptor] = useState<string>('');
 
 	return (

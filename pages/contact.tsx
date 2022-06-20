@@ -6,6 +6,7 @@ import HeadPage from '../components/Head';
 import PageLayout from '../components/PageLayout';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
 	const [messageStatus, setMessageStatus] = useState(
@@ -93,10 +94,14 @@ const Contact = () => {
 							onChange={(e) => {}}
 						/>
 						<span className='errorMessage'>{messageStatus}</span>
-						<button type='submit'>
+						<motion.button
+							whileTap={{ scale: 0.8 }}
+							whileHover={{ scale: 1.1 }}
+							type='submit'
+						>
 							<BiMailSend />
 							<span>Enviar mensagem</span>
-						</button>
+						</motion.button>
 					</form>
 				</article>
 			</Container>

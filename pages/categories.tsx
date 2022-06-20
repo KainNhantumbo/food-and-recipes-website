@@ -17,69 +17,80 @@ import Image from 'next/image';
 import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import PageLayout from '../components/PageLayout';
+import { motion } from 'framer-motion';
 
 interface CategoriesProps {
 	label: string;
 	image_alt: string;
 	image: StaticImageData;
 	destination_url: string;
+	appear_delay: number;
 }
 
 const Categories: NextPage = (): JSX.Element => {
 	const categoriesData: CategoriesProps[] = [
 		{
-			label: 'Bolos',
-			image: cakes,
-			image_alt: 'imagem de bolos',
-			destination_url: '/categories/category=cakes',
-		},
-		{
 			label: 'Biscoitos',
 			image: biscuits,
 			image_alt: 'imagem de biscoitos',
 			destination_url: '/categories/category=biscuits',
+			appear_delay: 0,
+		},
+		{
+			label: 'Bolos',
+			image: cakes,
+			image_alt: 'imagem de bolos',
+			destination_url: '/categories/category=cakes',
+			appear_delay: 0.2,
 		},
 		{
 			label: 'Cocktails',
 			image: cocktails,
 			image_alt: 'imagem de cocktails',
 			destination_url: '/categories/category=cocktails',
-		},
-		{
-			label: 'Cupcakes',
-			image: cupcakes,
-			image_alt: 'imagem de cupcakes',
-			destination_url: '/categories/category=cupcakes',
-		},
-		{
-			label: 'Comida leve e saudável',
-			image: fitness_meal,
-			image_alt: 'imagem de comida fitness',
-			destination_url: '/categories/category=fitness_meal',
-		},
-		{
-			label: 'Sopas leves e saudáveis',
-			image: fitness_soup,
-			image_alt: 'imagem de sopas fitness',
-			destination_url: '/categories/category=fitness_soup',
-		},
-		{
-			label: 'Mariscos',
-			image: shellfish,
-			image_alt: 'imagem de mariscos',
-			destination_url: '/categories/category=shellfish',
+			appear_delay: 0.4,
 		},
 		{
 			label: 'Comida diversa',
 			image: other,
 			image_alt: 'imagem de comida diversa',
 			destination_url: '/categories/category=other',
+			appear_delay: 0.6,
+		},
+		{
+			label: 'Comida leve e saudável',
+			image: fitness_meal,
+			image_alt: 'imagem de comida fitness',
+			destination_url: '/categories/category=fitness_meal',
+			appear_delay: 0.8,
 		},
 		{
 			label: 'Comida vegetariana',
 			image: vegetarian,
 			image_alt: 'imagem de comida vegetariana',
 			destination_url: '/categories/category=vagetarian',
+			appear_delay: 1,
+		},
+		{
+			label: 'Cupcakes',
+			image: cupcakes,
+			image_alt: 'imagem de cupcakes',
+			destination_url: '/categories/category=cupcakes',
+			appear_delay: 1.2,
+		},
+		{
+			label: 'Mariscos',
+			image: shellfish,
+			image_alt: 'imagem de mariscos',
+			destination_url: '/categories/category=shellfish',
+			appear_delay: 1.4,
+		},
+		{
+			label: 'Sopas leves e saudáveis',
+			image: fitness_soup,
+			image_alt: 'imagem de sopas fitness',
+			destination_url: '/categories/category=fitness_soup',
+			appear_delay: 1.6,
 		},
 	].sort((a, b) => {
 		if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
@@ -100,11 +111,28 @@ const Categories: NextPage = (): JSX.Element => {
 				</section>
 				<article className='base-container'>
 					{categoriesData.map(
-						({ image, image_alt, label, destination_url }, index) => {
+						(
+							{ image, image_alt, label, destination_url, appear_delay },
+							index
+						) => {
 							return (
-								<section className='category' key={index}>
+								<motion.section
+									transition={{
+										type: 'spring',
+										duration: 0.5,
+										delay: appear_delay,
+									}}
+									initial={{ scale: 0 }}
+									animate={{ scale: 1 }}
+									className='category'
+									key={index}
+								>
 									<Link href={destination_url}>
-										<div className='image-container'>
+										<motion.div
+											whileTap={{ scale: 0.8 }}
+											whileHover={{ scale: 1.05 }}
+											className='image-container'
+										>
 											<Image
 												src={image}
 												alt={image_alt}
@@ -112,7 +140,7 @@ const Categories: NextPage = (): JSX.Element => {
 												width={200}
 												height={200}
 											/>
-										</div>
+										</motion.div>
 									</Link>
 									<Link href={destination_url}>
 										<h3>
@@ -120,7 +148,7 @@ const Categories: NextPage = (): JSX.Element => {
 											<span>{label}</span>
 										</h3>
 									</Link>
-								</section>
+								</motion.section>
 							);
 						}
 					)}
