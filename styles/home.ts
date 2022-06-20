@@ -4,15 +4,19 @@ export const HomeContainer = styled.main`
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
-	padding: 90px 10px;
+	padding: 70px 10px 50px 10px;
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
 	font-family: Inter, 'Open Sans', Montserrat, Poppins, 'PT Sans';
 	line-height: 1.6rem;
 	background: rgb(${({ theme }) => theme.background_alter});
-	border-radius: 20px;
+	border-radius: 30px;
 	margin-bottom: 50px;
+
+	.slide-container {
+		
+	}
 
 	.toolbar-container {
 		display: flex;
@@ -115,7 +119,6 @@ export const HomeContainer = styled.main`
 				position: relative;
 				background: rgb(${({ theme }) => theme.backgroundAlt});
 				box-shadow: 0 0 25px rgba(${({ theme }) => theme.shadows}, 0.6);
-
 				user-select: none;
 
 				img {

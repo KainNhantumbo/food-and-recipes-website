@@ -7,9 +7,9 @@ import PageLayout from '../components/PageLayout';
 import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
-import { FaSearch, FaTimes, FaUser } from 'react-icons/fa';
-import { BiAlarm, BiRestaurant, BiSearch } from 'react-icons/bi';
 import Link from 'next/link';
+import { FaTimes, FaUser } from 'react-icons/fa';
+import { BiAlarm, BiRestaurant, BiSearch } from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 
 interface PostData {
@@ -25,7 +25,6 @@ interface PostData {
 }
 
 interface Props {
-	locale: [];
 	data: { posts: PostData[] };
 }
 
@@ -50,7 +49,9 @@ const Home: NextPage<Props> = ({ data }) => {
 			<Header />
 			<PageLayout />
 			<Container>
-				<section className='illustration-container'></section>
+				<section className='slide-container'>
+					
+				</section>
 				<section className='toolbar-container'>
 					<h2>
 						<BiRestaurant />
@@ -133,11 +134,15 @@ const Home: NextPage<Props> = ({ data }) => {
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-	const response = await fetch(`${base_api_url}/recipes/posts`);
-	const data = await response.json();
+	try {
+		const response = await fetch(`${base_api_url}/recipes/posts`);
+		const data = await response.json();
 
-	return {
-		props: { locale: context.query, data },
-	};
+		return {
+			props: { locale: context.query, data },
+		};
+	} catch (err) {
+		console.log(err);
+	}
 }
 export default Home;

@@ -13,9 +13,9 @@ import shellfish from '../assets/shellfish.jpg';
 import biscuits from '../assets/biscuits.jpg';
 import other from '../assets/variants.jpg';
 import vegetarian from '../assets/vegetarian.jpg';
+import Image from 'next/image';
 import { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import Image from 'next/image';
 import PageLayout from '../components/PageLayout';
 
 interface CategoriesProps {
