@@ -7,8 +7,17 @@ import PageLayout from '../../components/PageLayout';
 import Footer from '../../components/Footer';
 import { base_api_url } from '../../utils/utils';
 import Image from 'next/image';
-import { FaLightbulb, FaQuestionCircle } from 'react-icons/fa';
-import { BiHelpCircle } from 'react-icons/bi';
+import {
+	FaFacebook,
+	FaLightbulb,
+	FaPinterest,
+	FaQuestionCircle,
+	FaTwitter,
+	FaUser,
+	FaWhatsapp,
+} from 'react-icons/fa';
+import { BiAlarm, BiRestaurant } from 'react-icons/bi';
+
 interface PostData {
 	cook_time: string;
 	hints: string;
@@ -40,25 +49,44 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 			<Header />
 			<PageLayout />
 			<Container>
-				<section className='title'>
-					<h1>
-						<span>{post.title}</span>
-					</h1>
-					<h3>
-						<span>{post.description}</span>
-					</h3>
-				</section>
 				<article>
+					<section className='title'>
+						<h1>
+							<span>
+								<strong>{post.title}</strong>
+							</span>
+						</h1>
+						<h3>
+							<span>{post.description}</span>
+						</h3>
+						<section className='post-details'>
+							<div>
+								<BiRestaurant />
+								<span>{post.category}</span>
+							</div>
+							<div>
+								<BiAlarm />
+								<span>{post.cook_time}</span>
+							</div>
+							<div>
+								<FaUser />
+								<span>{post.serving_yield} pessoas</span>
+							</div>
+						</section>
+					</section>
 					<section className='upper-container'>
+						<section className='intro'></section>
 						<section title={post.image_alt} className='illustration'>
 							<img src={post.image} alt={post.image_alt} />
 						</section>
-						<section className='intro'></section>
 					</section>
+
 					<section className='base-container'>
 						<section className='post-section'>
 							<h3 className='label'>
-								<span>Ingredientes</span>
+								<span>
+									<strong>Ingredientes</strong>
+								</span>
 							</h3>
 							<section className='body'>
 								{post.ingredients.includes('\n') ? (
@@ -71,7 +99,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 
 						<section className='post-section'>
 							<h3 className='label'>
-								<span>Modo de Preparo</span>
+								<span>
+									<strong>Modo de Preparo</strong>
+								</span>
 							</h3>
 							<section className='body'>
 								{post.instructions.includes('\n') ? (
@@ -85,7 +115,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 						<section className='post-section'>
 							<h3 className='label'>
 								<FaLightbulb />
-								<span>Dicas</span>
+								<span>
+									<strong>Dicas</strong>
+								</span>
 							</h3>
 							<section className='body'>
 								{post.history.includes('\n') ? (
@@ -99,7 +131,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 						<section className='post-section'>
 							<h3 className='label'>
 								<FaQuestionCircle />
-								<span>Você sabia?</span>
+								<span>
+									<strong>Você sabia?</strong>
+								</span>
 							</h3>
 							<section className='body'>
 								{post.ingredients.includes('\n') ? (
@@ -108,6 +142,27 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 									<p>{post.ingredients}</p>
 								)}
 							</section>
+						</section>
+					</section>
+					<section className='share-container'>
+						<h3>
+							<span>
+								<strong>Compartilhe nas redes sociais</strong>
+							</span>
+						</h3>
+						<section className='social-container'>
+							<div>
+								<FaWhatsapp />
+							</div>
+							<div>
+								<FaFacebook />
+							</div>
+							<div>
+								<FaPinterest />
+							</div>
+							<div>
+								<FaTwitter />
+							</div>
 						</section>
 					</section>
 				</article>
