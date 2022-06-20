@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
@@ -17,9 +17,13 @@ import {
 } from 'react-icons/bi';
 import { HiArrowCircleRight } from 'react-icons/hi';
 import useSWR from 'swr';
-import { URL } from 'url';
-import { useState } from 'react';
+import { URL, URLSearchParams } from 'url';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { initial } from 'lodash';
+import { getURL } from 'next/dist/shared/lib/utils';
+import _ from 'lodash';
 
 interface PostData {
 	_id: string;
@@ -30,23 +34,36 @@ interface PostData {
 	image: string;
 }
 
+interface dataProps {
+	results: number;
+	posts: PostData[];
+}
+
 const Recipes: NextPage = (): JSX.Element => {
 	const router = useRouter();
 	const [pageIndex, setPageIndex] = useState(1);
+	const [data, setData] = useState<dataProps>({ results: 0, posts: [] });
+	console.log(data);
 
-	const fetcher = (args: URL | RequestInfo) =>
-		fetch(args).then((res) => res.json());
+	const posts = data.posts;
+	const pages = _.range(1, Math.ceil(data.results / 5));
 
-	const { data } = useSWR(
-		`${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url`,
-		fetcher
-	);
-	if (!data) {
-		return <Error statusCode={500} />;
-	}
+	const fetcher = async (page: string | number) => {
+		try {
+			const response = await axios({
+				method: 'get',
+				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}`,
+			});
+			setData(response.data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
-	const posts: PostData[] = data.posts;
-	console.log(posts);
+	useEffect(() => {
+		const params = getURL().split('?')[1].slice(5);
+		fetcher(params);
+	}, []);
 
 	return (
 		<>
@@ -61,7 +78,7 @@ const Recipes: NextPage = (): JSX.Element => {
 					</h2>
 				</section>
 				<article className='base-container'>
-					{posts.map(({ _id, image, image_alt, title, description }) => {
+					{posts?.map(({ _id, image, image_alt, title, description }) => {
 						return (
 							<section className='recipe' key={_id}>
 								<HiArrowCircleRight className='arrow-icon' />
@@ -87,44 +104,41 @@ const Recipes: NextPage = (): JSX.Element => {
 				<section className='pagination-container'>
 					<section className='pagination'>
 						<motion.button
-							whileTap={{ scale: 0.5 }}
+							whileTap={{ scale: 0.7 }}
 							transition={{ type: 'spring', duration: 0.5 }}
+							onClick={() => {
+								if (pageIndex === 1) return;
+								setPageIndex(pageIndex - 1);
+								router.push(`/recipes?page=${pageIndex - 1}`);
+								fetcher(pageIndex - 1);
+							}}
 						>
 							<BiLeftArrowAlt />
 						</motion.button>
+
+						{pages.map((page) => (
+							<motion.button
+								key={page}
+								whileTap={{ scale: 0.7 }}
+								transition={{ type: 'spring', duration: 0.5 }}
+								onClick={() => {
+									router.push(`/recipes?page=${page}`);
+									fetcher(page);
+								}}
+							>
+								<span>{page}</span>
+							</motion.button>
+						))}
+
 						<motion.button
-							whileTap={{ scale: 0.5 }}
+							whileTap={{ scale: 0.7 }}
 							transition={{ type: 'spring', duration: 0.5 }}
-						>
-							<span>{pageIndex}</span>
-						</motion.button>
-						<motion.button
-							whileTap={{ scale: 0.5 }}
-							transition={{ type: 'spring', duration: 0.5 }}
-						>
-							<span>{pageIndex + 1}</span>
-						</motion.button>
-						<motion.button
-							whileTap={{ scale: 0.5 }}
-							transition={{ type: 'spring', duration: 0.5 }}
-						>
-							<span>{pageIndex + 2}</span>
-						</motion.button>
-						<motion.button
-							whileTap={{ scale: 0.5 }}
-							transition={{ type: 'spring', duration: 0.5 }}
-						>
-							<span>{pageIndex + 3}</span>
-						</motion.button>
-						<motion.button
-							whileTap={{ scale: 0.5 }}
-							transition={{ type: 'spring', duration: 0.5 }}
-						>
-							<span>{data.results}</span>
-						</motion.button>
-						<motion.button
-							whileTap={{ scale: 0.5 }}
-							transition={{ type: 'spring', duration: 0.5 }}
+							onClick={() => {
+								if (pageIndex === Math.ceil(data.results/10)) return;
+								setPageIndex(pageIndex + 1);
+								router.push(`/recipes?page=${pageIndex + 1}`);
+								fetcher(pageIndex + 1);
+							}}
 						>
 							<BiRightArrowAlt />
 						</motion.button>
@@ -135,5 +149,23 @@ const Recipes: NextPage = (): JSX.Element => {
 		</>
 	);
 };
+
+// export async function getServerSideProps(context: NextPageContext) {
+// 	try {
+// 		const response = await fetch(
+// 			`${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=1`
+// 		);
+// 		const initialData = await response.json();
+
+// 		return {
+// 			props: { initialData },
+// 		};
+// 	} catch (err) {
+// 		console.log(err);
+// 		return {
+// 			props: {}, error: err
+// 		};
+// 	}
+// }
 
 export default Recipes;

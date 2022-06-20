@@ -127,11 +127,13 @@ export const RecipesContainer = styled.main`
 			place-content: center;
 			position: relative;
 			cursor: pointer;
+			outline: none;
 
 			svg {
 				width: 24px;
 				height: 24px;
 				color: rgb(${({ theme }) => theme.secondary});
+				pointer-events: none;
 			}
 		}
 		span {
