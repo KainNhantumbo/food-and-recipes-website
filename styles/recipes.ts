@@ -43,10 +43,11 @@ export const RecipesContainer = styled.main`
 			border-radius: 12px;
 			gap: 5px;
 			position: relative;
-			padding: 8px 10px 0px 10px;
+			padding: 5px 10px;
 			background: rgb(${({ theme }) => theme.backgroundAlt});
 			box-shadow: 0 0 2px rgba(${({ theme }) => theme.shadows}, 0.6);
 			cursor: pointer;
+			align-items: center;
 
 			@media screen and (max-width: 315px) {
 				grid-template-columns: 50px 60%;
@@ -66,16 +67,11 @@ export const RecipesContainer = styled.main`
 				color: rgba(${({ theme }) => theme.primary}, 0.5);
 			}
 
-			.image-container {
-				padding: 5px;
-				img {
-					border-radius: 12px;
-					width: 50px;
-					:hover {
-						transform: scale(1.1);
-						transition: all 200ms ease;
-					}
-				}
+			img {
+				width: 50px;
+				height: 50px;
+				border-radius: 8px;
+				object-fit: cover;
 			}
 
 			.info-container {
@@ -105,6 +101,42 @@ export const RecipesContainer = styled.main`
 					font-size: 1rem;
 				}
 			}
+		}
+	}
+
+	.pagination-container {
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+
+		.pagination {
+			display: flex;
+			justify-content: flex-start;
+			gap: 10px;
+		}
+
+		button {
+			width: 32px;
+			height: 32px;
+			margin-top: 8px;
+			border: none;
+			display: grid;
+			background: rgba(${({ theme }) => theme.secondary}, 0.2);
+			border-radius: 10px;
+			backdrop-filter: blur(10px);
+			place-content: center;
+			position: relative;
+			cursor: pointer;
+
+			svg {
+				width: 24px;
+				height: 24px;
+				color: rgb(${({ theme }) => theme.secondary});
+			}
+		}
+		span {
+			padding: 0;
+			color: rgb(${({ theme }) => theme.secondary});
 		}
 	}
 `;

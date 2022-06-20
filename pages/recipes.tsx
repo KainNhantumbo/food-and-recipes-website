@@ -1,4 +1,4 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
@@ -10,10 +10,16 @@ import PageLayout from '../components/PageLayout';
 import { base_api_url } from '../utils/utils';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+import {
+	BiDotsVerticalRounded,
+	BiLeftArrowAlt,
+	BiRightArrowAlt,
+} from 'react-icons/bi';
 import { HiArrowCircleRight } from 'react-icons/hi';
-import useSWR, { Fetcher } from 'swr';
+import useSWR from 'swr';
 import { URL } from 'url';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface PostData {
 	_id: string;
@@ -26,6 +32,8 @@ interface PostData {
 
 const Recipes: NextPage = (): JSX.Element => {
 	const router = useRouter();
+	const [pageIndex, setPageIndex] = useState(1);
+
 	const fetcher = (args: URL | RequestInfo) =>
 		fetch(args).then((res) => res.json());
 
@@ -57,29 +65,71 @@ const Recipes: NextPage = (): JSX.Element => {
 						return (
 							<section className='recipe' key={_id}>
 								<HiArrowCircleRight className='arrow-icon' />
-								<div className='image-container'>
-									<Link href={`/post/${_id}`}>
-										<img title={image_alt} src={image} width={50} height={50} />
-									</Link>
-								</div>
-								<div className='info-container'>
-									<Link href={`/post/${_id}`}>
-										<>
-											<h3>
-												<BiDotsVerticalRounded />
-												<span>{title}</span>
-											</h3>
-											<h4>
-												<BiDotsVerticalRounded />
-												<span>{description}</span>
-											</h4>
-										</>
-									</Link>
-								</div>
+								<Link href={`/post/${_id}`}>
+									<img title={image_alt} src={image} />
+								</Link>
+								<Link href={`/post/${_id}`}>
+									<div className='info-container'>
+										<h3>
+											<BiDotsVerticalRounded />
+											<span>{title}</span>
+										</h3>
+										<h4>
+											<BiDotsVerticalRounded />
+											<span>{description}</span>
+										</h4>
+									</div>
+								</Link>
 							</section>
 						);
 					})}
 				</article>
+				<section className='pagination-container'>
+					<section className='pagination'>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<BiLeftArrowAlt />
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<span>{pageIndex}</span>
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<span>{pageIndex + 1}</span>
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<span>{pageIndex + 2}</span>
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<span>{pageIndex + 3}</span>
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<span>{data.results}</span>
+						</motion.button>
+						<motion.button
+							whileTap={{ scale: 0.5 }}
+							transition={{ type: 'spring', duration: 0.5 }}
+						>
+							<BiRightArrowAlt />
+						</motion.button>
+					</section>
+				</section>
 			</Container>
 			<Footer />
 		</>

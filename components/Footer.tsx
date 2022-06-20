@@ -47,7 +47,7 @@ const Footer: FC = ({}): JSX.Element => {
 							<Link href='/'>Início</Link>
 						</motion.li>
 						<motion.li whileTap={{ scale: 0.7 }}>
-							<Link href='/recipes'>Receitas</Link>
+							<Link href='/recipes?page=1'>Receitas</Link>
 						</motion.li>
 						<motion.li whileTap={{ scale: 0.7 }}>
 							<Link href='/categories'>Categorias</Link>
