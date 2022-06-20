@@ -51,7 +51,6 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 		return <Error statusCode={500} />;
 	}
 	const post = data.post;
-	console.log(post);
 
 	return (
 		<>
@@ -120,7 +119,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</motion.h3>
 							<section className='body'>
 								{post.ingredients.includes('\n') ? (
-									post.ingredients.split('\n').map((phrase) => <p>{phrase}</p>)
+									post.ingredients
+										.split('\n')
+										.map((phrase, index) => <p key={index}>{phrase}</p>)
 								) : (
 									<p>{post.ingredients}</p>
 								)}
@@ -136,7 +137,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</motion.h3>
 							<section className='body'>
 								{post.instructions.includes('\n') ? (
-									post.instructions.split('\n').map((phrase) => <p>{phrase}</p>)
+									post.instructions
+										.split('\n')
+										.map((phrase, index) => <p key={index}>{phrase}</p>)
 								) : (
 									<p>{post.instructions}</p>
 								)}
@@ -152,7 +155,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</motion.h3>
 							<section className='body'>
 								{post.history.includes('\n') ? (
-									post.history.split('\n').map((phrase) => <p>{phrase}</p>)
+									post.history
+										.split('\n')
+										.map((phrase, index) => <p key={index}>{phrase}</p>)
 								) : (
 									<p>{post.history}</p>
 								)}
@@ -168,7 +173,9 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</motion.h3>
 							<section className='body'>
 								{post.ingredients.includes('\n') ? (
-									post.ingredients.split('\n').map((phrase) => <p>{phrase}</p>)
+									post.ingredients
+										.split('\n')
+										.map((phrase, index) => <p key={index}>{phrase}</p>)
 								) : (
 									<p>{post.ingredients}</p>
 								)}

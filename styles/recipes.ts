@@ -119,7 +119,7 @@ export const RecipesContainer = styled.main`
 			width: 32px;
 			height: 32px;
 			margin-top: 8px;
-			border: none;
+			border: 2px solid transparent;
 			display: grid;
 			background: rgba(${({ theme }) => theme.secondary}, 0.2);
 			border-radius: 10px;
