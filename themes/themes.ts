@@ -26,6 +26,6 @@ export const dark: ThemeObj = {
 	text: '240, 240,240',
 	shadows: '25, 25, 28',
 	background: '32, 33, 36',
-	background_alter: '32, 33, 36',
+	background_alter: '25, 25, 28',
 	backgroundAlt: '41, 42, 46',
 };

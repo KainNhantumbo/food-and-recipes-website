@@ -16,7 +16,17 @@ import {
 	FaUser,
 	FaWhatsapp,
 } from 'react-icons/fa';
+import {
+	HiClock,
+	HiBookmark,
+	HiUser,
+	HiUserCircle,
+	HiUsers,
+	HiInformationCircle,
+	HiViewGrid,
+} from 'react-icons/hi';
 import { BiAlarm, BiRestaurant } from 'react-icons/bi';
+import Link from 'next/link';
 
 interface PostData {
 	cook_time: string;
@@ -50,7 +60,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 			<PageLayout />
 			<Container>
 				<article>
-					<section className='title'>
+					<section className='intro'>
 						<h1>
 							<span>
 								<strong>{post.title}</strong>
@@ -60,22 +70,22 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							<span>{post.description}</span>
 						</h3>
 						<section className='post-details'>
-							<div>
-								<BiRestaurant />
+							<div className='category'>
+								<HiBookmark />
 								<span>{post.category}</span>
 							</div>
 							<div>
-								<BiAlarm />
+								<HiClock />
 								<span>{post.cook_time}</span>
 							</div>
 							<div>
-								<FaUser />
+								<HiUsers />
 								<span>{post.serving_yield} pessoas</span>
 							</div>
 						</section>
 					</section>
+
 					<section className='upper-container'>
-						<section className='intro'></section>
 						<section title={post.image_alt} className='illustration'>
 							<img src={post.image} alt={post.image_alt} />
 						</section>
@@ -84,6 +94,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 					<section className='base-container'>
 						<section className='post-section'>
 							<h3 className='label'>
+								<HiViewGrid />
 								<span>
 									<strong>Ingredientes</strong>
 								</span>
@@ -99,6 +110,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 
 						<section className='post-section'>
 							<h3 className='label'>
+								<HiInformationCircle />
 								<span>
 									<strong>Modo de Preparo</strong>
 								</span>
@@ -112,7 +124,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</section>
 						</section>
 
-						<section className='post-section'>
+						<section className='post-section hints'>
 							<h3 className='label'>
 								<FaLightbulb />
 								<span>
@@ -151,18 +163,26 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</span>
 						</h3>
 						<section className='social-container'>
-							<div>
-								<FaWhatsapp />
-							</div>
-							<div>
-								<FaFacebook />
-							</div>
-							<div>
-								<FaPinterest />
-							</div>
-							<div>
-								<FaTwitter />
-							</div>
+							<Link href={'/'}>
+								<div>
+									<FaWhatsapp />
+								</div>
+							</Link>
+							<Link href={'/'}>
+								<div>
+									<FaFacebook />
+								</div>
+							</Link>
+							<Link href={'/'}>
+								<div>
+									<FaPinterest />
+								</div>
+							</Link>
+							<Link href={'/'}>
+								<div>
+									<FaTwitter />
+								</div>
+							</Link>
 						</section>
 					</section>
 				</article>
