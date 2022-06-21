@@ -1,5 +1,5 @@
 import { FooterContainer as Container } from '../styles/components/footer';
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -11,16 +11,20 @@ const Footer: FC = ({}): JSX.Element => {
 	const [subscriptor, setSubscriptor] = useState<string>('');
 	const [isModalActive, setIsModalActive] = useState(false);
 
-	const sendNewsletterSubscriber = async (): Promise<void> => {
+	const sendNewsletterSubscriber = async (
+		e: FormEvent<HTMLFormElement>
+	): Promise<void> => {
 		try {
+			e.preventDefault();
 			axios({
 				method: 'post',
 				url: `${base_api_url}/recipes/newsletter`,
-				data: subscriptor,
+				data: { email: subscriptor },
 			});
 			setIsModalActive(true);
+			console.log(subscriptor);
 		} catch (err: any) {
-			console.log(err.message);
+			console.log(err.response.message);
 		}
 	};
 
@@ -46,7 +50,7 @@ const Footer: FC = ({}): JSX.Element => {
 						</p>
 					</div>
 					<section className='form'>
-						<form>
+						<form onSubmit={sendNewsletterSubscriber}>
 							<input
 								type='email'
 								name='email'
