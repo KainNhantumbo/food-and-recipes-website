@@ -33,7 +33,7 @@ const Header: FC = (): JSX.Element => {
 		<Container>
 			<h2 className='brand' onClick={() => router.push('/')}>
 				<FaCoffee />
-				<span>MealRaptor</span>
+				<span>AweBacker</span>
 			</h2>
 			<motion.button
 				whileTap={{ scale: 0.5 }}

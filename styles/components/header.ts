@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
 	justify-content: center;
 	align-items: center;
 	gap: 5px;
-	background: rgba(${({ theme }) => theme.backgroundAlt}, 0.5);
+	background: rgba(${({ theme }) => theme.backgroundAlt}, 0.6);
 	backdrop-filter: blur(10px);
 	box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
 	z-index: 5000;
