@@ -3,12 +3,35 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { FaNewspaper, FaPaperPlane } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { base_api_url } from '../utils/utils';
+import { ConfirmDialog } from './Modal';
 
 const Footer: FC = ({}): JSX.Element => {
 	const [subscriptor, setSubscriptor] = useState<string>('');
+	const [isModalActive, setIsModalActive] = useState(true);
+
+	const sendNewsletterSubscriber = async (): Promise<void> => {
+		try {
+			axios({
+				method: 'post',
+				url: `${base_api_url}/recipes/visitors`,
+				data: subscriptor,
+			});
+		} catch (err: any) {
+			console.log(err.message);
+		}
+	};
 
 	return (
 		<Container>
+			{isModalActive ? (
+				<ConfirmDialog
+					prompt_title='Obrigado por se juntar à nós!'
+					prompt_message='Você receberá as novidades do nosso site em seu e-mail. Caso não queira mais receber os e-mails, pode cancelar a sua subscrição a qualquer momento.'
+					closeModal={setIsModalActive}
+				/>
+			) : null}
 			<section className='newsletter'>
 				<div className='container'>
 					<div className='content'>
