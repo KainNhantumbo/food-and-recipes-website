@@ -12,11 +12,10 @@ import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import { VscError } from 'react-icons/vsc';
 
 import { BiAlarm, BiErrorCircle, BiRestaurant, BiSearch } from 'react-icons/bi';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Error from 'next/error';
 import axios from 'axios';
 import { Loading } from '../components/Loading';
-import { HiDownload } from 'react-icons/hi';
 
 interface PostData {
 	cook_time: string;

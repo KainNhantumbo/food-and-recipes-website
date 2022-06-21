@@ -51,6 +51,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 		return <Error statusCode={500} />;
 	}
 	const post = data.post;
+	console.log(post);
 
 	return (
 		<>
@@ -146,41 +147,45 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							</section>
 						</section>
 
-						<section className='post-section hints'>
-							<motion.h3 className='label' whileHover={{ scale: 1.1 }}>
-								<FaLightbulb />
-								<span>
-									<strong>Dicas</strong>
-								</span>
-							</motion.h3>
-							<section className='body'>
-								{post.history.includes('\n') ? (
-									post.history
-										.split('\n')
-										.map((phrase, index) => <p key={index}>{phrase}</p>)
-								) : (
-									<p>{post.history}</p>
-								)}
+						{post.hints ? (
+							<section className='post-section hints'>
+								<motion.h3 className='label' whileHover={{ scale: 1.1 }}>
+									<FaLightbulb />
+									<span>
+										<strong>Dicas</strong>
+									</span>
+								</motion.h3>
+								<section className='body'>
+									{post.hints.includes('\n') ? (
+										post.hints
+											.split('\n')
+											.map((phrase, index) => <p key={index}>{phrase}</p>)
+									) : (
+										<p>{post.hints}</p>
+									)}
+								</section>
 							</section>
-						</section>
+						) : null}
 
-						<section className='post-section'>
-							<motion.h3 className='label' whileHover={{ scale: 1.1 }}>
-								<FaQuestionCircle />
-								<span>
-									<strong>Você sabia?</strong>
-								</span>
-							</motion.h3>
-							<section className='body'>
-								{post.ingredients.includes('\n') ? (
-									post.ingredients
-										.split('\n')
-										.map((phrase, index) => <p key={index}>{phrase}</p>)
-								) : (
-									<p>{post.ingredients}</p>
-								)}
+						{post.history ? (
+							<section className='post-section'>
+								<motion.h3 className='label' whileHover={{ scale: 1.1 }}>
+									<FaQuestionCircle />
+									<span>
+										<strong>Você sabia?</strong>
+									</span>
+								</motion.h3>
+								<section className='body'>
+									{post.history.includes('\n') ? (
+										post.history
+											.split('\n')
+											.map((phrase, index) => <p key={index}>{phrase}</p>)
+									) : (
+										<p>{post.history}</p>
+									)}
+								</section>
 							</section>
-						</section>
+						) : null}
 					</section>
 					<section className='share-container'>
 						<h3>
