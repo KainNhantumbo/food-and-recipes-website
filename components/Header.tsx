@@ -57,7 +57,7 @@ const Header: FC<Props> = (): JSX.Element => {
 					<Link href={'/recipes?page=1'}>
 						<motion.li
 							whileTap={{ scale: 0.7 }}
-							whileHover={{ scale: 1.1, y: 2 }}
+							whileHover={{ scale: 1.05, y: 1 }}
 						>
 							<span>Receitas</span>
 						</motion.li>

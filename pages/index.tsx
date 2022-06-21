@@ -54,6 +54,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 	const [data, setData] = useState<dataProps>(initialData);
 	const posts = data.posts;
 
+	// gets data from the server after a query
 	async function searchData(e: FormEvent<HTMLFormElement>): Promise<void> {
 		try {
 			e.preventDefault();
@@ -87,7 +88,8 @@ const Home: NextPage<Props> = ({ initialData }) => {
 		}
 	}
 
-	const revalidateData = async () => {
+	// gets data from the server
+	const revalidateData = async (): Promise<void> => {
 		try {
 			setIsMessage(false);
 			setIsLoading(true);

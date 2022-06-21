@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { FaSortAlphaDown } from 'react-icons/fa';
+import { FaBox, FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
@@ -11,6 +11,7 @@ import { base_api_url } from '../utils/utils';
 import { useRouter } from 'next/router';
 import {
 	BiDotsVerticalRounded,
+	BiErrorCircle,
 	BiLeftArrowAlt,
 	BiRightArrowAlt,
 } from 'react-icons/bi';
@@ -20,6 +21,8 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { getURL } from 'next/dist/shared/lib/utils';
 import _ from 'lodash';
+import { VscError } from 'react-icons/vsc';
+import { Loading } from '../components/Loading';
 
 interface PostData {
 	_id: string;
@@ -43,15 +46,40 @@ const Recipes: NextPage = (): JSX.Element => {
 	const posts = data.posts;
 	const pages = _.range(1, Math.ceil(data.results / 5));
 
-	const fetcher = async (page: string | number) => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [isMessage, setIsMessage] = useState(false);
+	const [loadState, setLoadState] = useState({
+		icon: <FaBox />,
+		info: 'Nenhuma postagem corresponde a sua pesquisa.',
+	});
+
+	// gets data from the server
+	const fetcher = async (page: string | number): Promise<void> => {
 		try {
+			setIsMessage(false);
+			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
 				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}`,
 			});
 			setData(response.data);
-		} catch (err) {
+			setIsLoading(false);
+		} catch (err: any) {
 			console.log(err);
+			setIsLoading(false);
+			setIsMessage(true);
+
+			if (err.code === 'ERR_NETWORK') {
+				setLoadState(() => ({
+					icon: <BiErrorCircle />,
+					info: 'Erro de conexão. Veja as suas configurações de internet.',
+				}));
+			} else {
+				setLoadState(() => ({
+					icon: <VscError />,
+					info: 'Parece que algo está errado. Tente recarregar a página.',
+				}));
+			}
 		}
 	};
 
@@ -73,28 +101,39 @@ const Recipes: NextPage = (): JSX.Element => {
 					</h2>
 				</section>
 				<article className='base-container'>
-					{posts?.map(({ _id, image, image_alt, title, description }) => {
-						return (
-							<section className='recipe' key={_id}>
-								<HiArrowCircleRight className='arrow-icon' />
-								<Link href={`/post/${_id}`}>
-									<img title={image_alt} src={image} />
-								</Link>
-								<Link href={`/post/${_id}`}>
-									<div className='info-container'>
-										<h3>
-											<BiDotsVerticalRounded />
-											<span>{title}</span>
-										</h3>
-										<h4>
-											<BiDotsVerticalRounded />
-											<span>{description}</span>
-										</h4>
-									</div>
-								</Link>
+					{isMessage ? (
+						<article className='empty-message'>
+							<section>
+								{loadState.icon}
+								<h2>{loadState.info}</h2>
 							</section>
-						);
-					})}
+						</article>
+					) : isLoading ? (
+						<Loading />
+					) : (
+						posts.map(({ _id, image, image_alt, title, description }) => {
+							return (
+								<section className='recipe' key={_id}>
+									<HiArrowCircleRight className='arrow-icon' />
+									<Link href={`/post/${_id}`}>
+										<img title={image_alt} src={image} />
+									</Link>
+									<Link href={`/post/${_id}`}>
+										<div className='info-container'>
+											<h3>
+												<BiDotsVerticalRounded />
+												<span>{title}</span>
+											</h3>
+											<h4>
+												<BiDotsVerticalRounded />
+												<span>{description}</span>
+											</h4>
+										</div>
+									</Link>
+								</section>
+							);
+						})
+					)}
 				</article>
 
 				<section className='pagination-container'>
