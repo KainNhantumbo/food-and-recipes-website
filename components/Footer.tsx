@@ -9,15 +9,16 @@ import { ConfirmDialog } from './Modal';
 
 const Footer: FC = ({}): JSX.Element => {
 	const [subscriptor, setSubscriptor] = useState<string>('');
-	const [isModalActive, setIsModalActive] = useState(true);
+	const [isModalActive, setIsModalActive] = useState(false);
 
 	const sendNewsletterSubscriber = async (): Promise<void> => {
 		try {
 			axios({
 				method: 'post',
-				url: `${base_api_url}/recipes/visitors`,
+				url: `${base_api_url}/recipes/newsletter`,
 				data: subscriptor,
 			});
+			setIsModalActive(true);
 		} catch (err: any) {
 			console.log(err.message);
 		}

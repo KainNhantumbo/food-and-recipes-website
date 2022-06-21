@@ -13,15 +13,6 @@ export const ConfirmModalContainer = styled.section`
 	place-content: center;
 	user-select: none;
 
-  background: rgba(${({ theme }) => theme.background}, 0.2);
-  backdrop-filter: blur(5px);
-  z-index: 10000;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-content: center;
-  user-select: none;
-
 	button {
     border: none;
 		background: none;
@@ -53,8 +44,6 @@ export const ConfirmModalContainer = styled.section`
 		}
 	}
 
-
-
 	.dialog-prompt {
 		display: flex;
 		justify-content: flex-start;
@@ -63,8 +52,8 @@ export const ConfirmModalContainer = styled.section`
 		padding: 20px;
 		border-radius: 10px;
 		background: rgb(${({ theme }) => theme.backgroundAlt});
-		box-shadow: 0 0 10px rgb(${({ theme }) => theme.shadows});
-		border-bottom: 2px solid rgb(${({ theme }) => theme.primary});
+		box-shadow: 0 0 20px rgb(${({ theme }) => theme.shadows});
+		border-bottom: 5px solid rgb(${({ theme }) => theme.primary});
 		max-width: 600px;
 		margin: 0 10px;
 
