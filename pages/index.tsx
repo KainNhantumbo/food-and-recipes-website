@@ -9,9 +9,10 @@ import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaTimes, FaUser } from 'react-icons/fa';
-import { BiAlarm, BiRestaurant, BiSearch } from 'react-icons/bi';
+import { BiAlarm, BiLoader, BiRestaurant, BiSearch } from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 import Error from 'next/error';
+import axios from 'axios';
 
 interface PostData {
 	cook_time: string;
@@ -25,24 +26,35 @@ interface PostData {
 }
 
 interface Props {
-	data: { posts: PostData[] };
+	initialData: { posts: PostData[]; results: number };
 }
 
-const Home: NextPage<Props> = ({ data }) => {
+interface dataProps {
+	results: number;
+	posts: PostData[];
+}
+
+const Home: NextPage<Props> = ({ initialData }) => {
 	const router = useRouter();
-	if (!data) {
+	if (!initialData) {
 		return <Error statusCode={500} />;
 	}
-
+	const [data, setData] = useState<dataProps>(initialData);
 	const posts = data.posts;
-	console.log(posts);
 
 	const [isClearButton, setIsClearButton] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
 
 	async function searchData(e: FormEvent<HTMLFormElement>) {
 		try {
 			e.preventDefault();
-			console.log(e);
+			const response = await axios({
+				method: 'get',
+				url: `${base_api_url}/recipes/posts?title=${searchValue}`,
+			});
+
+			setData(response.data);
 		} catch (err) {
 			console.log(err);
 		}
@@ -71,6 +83,7 @@ const Home: NextPage<Props> = ({ data }) => {
 								} else {
 									setIsClearButton(false);
 								}
+								setSearchValue(e.target.value);
 							}}
 						/>
 						{isClearButton ? (
@@ -81,54 +94,58 @@ const Home: NextPage<Props> = ({ data }) => {
 					</form>
 				</section>
 				<div className='main-container'>
-					<article className='posts-container'>
-						{posts.map(
-							({
-								_id,
-								title,
-								cook_time,
-								description,
-								serving_yield,
-								image,
-								image_alt,
-								image_url,
-							}) => (
-								<Link key={_id} href={`/post/${_id}`}>
-									<section className='post'>
-										<section className='image'>
-											<img src={image} alt={image_alt} />
+					{isLoading ? (
+					<div></div>
+					) : (
+						<article className='posts-container'>
+							{posts.map(
+								({
+									_id,
+									title,
+									cook_time,
+									description,
+									serving_yield,
+									image,
+									image_alt,
+									image_url,
+								}) => (
+									<Link key={_id} href={`/post/${_id}`}>
+										<section className='post'>
+											<section className='image'>
+												<img src={image} alt={image_alt} />
+											</section>
+											<section className='details-container'>
+												<h3 className='title' title={title}>
+													<span>{title}</span>
+												</h3>
+												<p title={description}>
+													{description.length > 70
+														? description.slice(0, 70) + '...'
+														: description}
+												</p>
+												<div className='chors'>
+													<section>
+														<h5>Pessoas</h5>
+														<h5>
+															<FaUser />
+															<span>{serving_yield} </span>
+														</h5>
+													</section>
+													<section>
+														<h4>Tempo</h4>
+														<h5>
+															<BiAlarm />
+															<span>14h 30min</span>
+														</h5>
+													</section>
+												</div>
+											</section>
 										</section>
-										<section className='details-container'>
-											<h3 className='title' title={title}>
-												<span>{title}</span>
-											</h3>
-											<p title={description}>
-												{description.length > 70
-													? description.slice(0, 70) + '...'
-													: description}
-											</p>
-											<div className='chors'>
-												<section>
-													<h5>Pessoas</h5>
-													<h5>
-														<FaUser />
-														<span>{serving_yield} </span>
-													</h5>
-												</section>
-												<section>
-													<h4>Tempo</h4>
-													<h5>
-														<BiAlarm />
-														<span>14h 30min</span>
-													</h5>
-												</section>
-											</div>
-										</section>
-									</section>
-								</Link>
-							)
-						)}
-					</article>
+									</Link>
+								)
+							)}
+						</article>
+					)}
 				</div>
 			</Container>
 			<Footer />
@@ -141,10 +158,10 @@ export async function getServerSideProps(context: NextPageContext) {
 		const response = await fetch(
 			`${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url`
 		);
-		const data = await response.json();
+		const initialData = await response.json();
 
 		return {
-			props: { data },
+			props: { initialData },
 		};
 	} catch (err) {
 		console.log(err);
