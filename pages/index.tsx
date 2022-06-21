@@ -8,17 +8,11 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaBox, FaFeather, FaTimes, FaUser, FaWind } from 'react-icons/fa';
-import {
-	BiAlarm,
-	BiDotsHorizontal,
-	BiLoader,
-	BiLoaderAlt,
-	BiLoaderCircle,
-	BiRestaurant,
-	BiSearch,
-} from 'react-icons/bi';
-import { FormEvent, useState } from 'react';
+import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
+import { VscError } from 'react-icons/vsc';
+
+import { BiAlarm, BiErrorCircle, BiRestaurant, BiSearch } from 'react-icons/bi';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Error from 'next/error';
 import axios from 'axios';
 import { Loading } from '../components/Loading';
@@ -49,7 +43,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 	const [searchValue, setSearchValue] = useState('');
 	const [isClearButton, setIsClearButton] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [isMessage, setIsMessage] = useState(true);
+	const [isMessage, setIsMessage] = useState(false);
 	const [loadState, setLoadState] = useState({
 		icon: <FaWind />,
 		info: 'Nenhuma postagem corresponde a sua pesquisa.',
@@ -63,25 +57,67 @@ const Home: NextPage<Props> = ({ initialData }) => {
 	async function searchData(e: FormEvent<HTMLFormElement>): Promise<void> {
 		try {
 			e.preventDefault();
-			setIsLoading(true)
+			setIsMessage(false);
+			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?title=${searchValue}`,
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&title=${searchValue}`,
 			});
-
 			setData(response.data);
-			if(response.data.posts.length === 0) {
-				setIsMessage(true)
+			if (response.data.posts.length === 0) {
+				setIsMessage(true);
 			}
-			setIsLoading(false)
-		} catch (err) {
-			setIsLoading(false)
-			console.log(err);
-			setIsMessage(true)
+			setIsLoading(false);
+		} catch (err: any) {
+			console.log(err.message);
+			setIsLoading(false);
+			setIsMessage(true);
+
+			if (err.code === 'ERR_NETWORK') {
+				setLoadState(() => ({
+					icon: <BiErrorCircle />,
+					info: 'Erro de conexão. Veja as suas configurações de internet.',
+				}));
+			} else {
+				setLoadState(() => ({
+					icon: <VscError />,
+					info: 'Parece que algo está errado. Tente recarregar a página.',
+				}));
+			}
 		}
 	}
 
+	const revalidateData = async () => {
+		try {
+			setIsMessage(false);
+			setIsLoading(true);
+			const response = await axios({
+				method: 'get',
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url`,
+			});
+			setData(response.data);
+			if (response.data.posts.length === 0) {
+				setIsMessage(true);
+			}
+			setIsLoading(false);
+		} catch (err: any) {
+			console.log(err.message);
+			setIsLoading(false);
+			setIsMessage(true);
 
+			if (err.code === 'ERR_NETWORK') {
+				setLoadState(() => ({
+					icon: <BiErrorCircle />,
+					info: 'Erro de conexão. Veja as suas configurações de internet.',
+				}));
+			} else {
+				setLoadState(() => ({
+					icon: <VscError />,
+					info: 'Parece que algo está errado. Tente recarregar a página.',
+				}));
+			}
+		}
+	};
 
 	return (
 		<>
@@ -101,10 +137,13 @@ const Home: NextPage<Props> = ({ initialData }) => {
 							type='text'
 							placeholder='Pesquisar receita'
 							onChange={(e) => {
-								if (e.target.value.length > 0) {
+								if (e.target.value.length >= 0) {
 									setIsClearButton(true);
 								} else {
 									setIsClearButton(false);
+								}
+								if (e.target.value.length < 1) {
+									revalidateData();
 								}
 								setSearchValue(e.target.value);
 							}}
@@ -119,11 +158,11 @@ const Home: NextPage<Props> = ({ initialData }) => {
 				<div className='main-container'>
 					{isMessage ? (
 						<article className='empty-message'>
-						<section>
-						{loadState.icon}
-							<h2>{loadState.info}</h2>
-						</section>
-					</article>
+							<section>
+								{loadState.icon}
+								<h2>{loadState.info}</h2>
+							</section>
+						</article>
 					) : isLoading ? (
 						<Loading />
 					) : (
