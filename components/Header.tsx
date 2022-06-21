@@ -5,9 +5,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-interface Props {}
-
-const Header: FC<Props> = (): JSX.Element => {
+const Header: FC = (): JSX.Element => {
 	const router = useRouter();
 	const [isMenu, setIsMenu] = useState(false);
 
@@ -49,7 +47,7 @@ const Header: FC<Props> = (): JSX.Element => {
 					<Link href={'/'}>
 						<motion.li
 							whileTap={{ scale: 0.7 }}
-							whileHover={{ scale: 1.1, y: 2 }}
+							whileHover={{ scale: 1.05, y: 1 }}
 						>
 							<span>Início</span>
 						</motion.li>
@@ -65,7 +63,7 @@ const Header: FC<Props> = (): JSX.Element => {
 					<Link href={'/categories'}>
 						<motion.li
 							whileTap={{ scale: 0.7 }}
-							whileHover={{ scale: 1.1, y: 2 }}
+							whileHover={{ scale: 1.05, y: 1 }}
 						>
 							<span>Categorias</span>
 						</motion.li>
@@ -73,7 +71,7 @@ const Header: FC<Props> = (): JSX.Element => {
 					<Link href={'/contact'}>
 						<motion.li
 							whileTap={{ scale: 0.7 }}
-							whileHover={{ scale: 1.1, y: 2 }}
+							whileHover={{ scale: 1.05, y: 1 }}
 						>
 							<span>Contato</span>
 						</motion.li>
@@ -81,7 +79,7 @@ const Header: FC<Props> = (): JSX.Element => {
 					<Link href={'/about'}>
 						<motion.li
 							whileTap={{ scale: 0.7 }}
-							whileHover={{ scale: 1.1, y: 2 }}
+							whileHover={{ scale: 1.05, y: 1 }}
 						>
 							<span>Sobre</span>
 						</motion.li>

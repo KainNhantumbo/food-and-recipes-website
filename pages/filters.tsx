@@ -1,13 +1,12 @@
 import { NextPage } from 'next';
 import { FaBox, FaSortAlphaDown } from 'react-icons/fa';
-import Footer from '../../components/Footer';
-import HeadPage from '../../components/Head';
-import Header from '../../components/Header';
-import { RecipesContainer as Container } from '../../styles/recipes';
+import Footer from '../components/Footer';
+import HeadPage from '../components/Head';
+import Header from '../components/Header';
+import { RecipesContainer as Container } from '../styles/recipes';
 import Link from 'next/link';
-import Image from 'next/image';
-import PageLayout from '../../components/PageLayout';
-import { base_api_url } from '../../utils/utils';
+import PageLayout from '../components/PageLayout';
+import { base_api_url } from '../utils/utils';
 import { useRouter } from 'next/router';
 import {
 	BiDotsVerticalRounded,
@@ -22,7 +21,7 @@ import axios from 'axios';
 import { getURL } from 'next/dist/shared/lib/utils';
 import _ from 'lodash';
 import { VscError } from 'react-icons/vsc';
-import { Loading } from '../../components/Loading';
+import { Loading } from '../components/Loading';
 
 interface PostData {
 	_id: string;
@@ -50,7 +49,7 @@ const Filters: NextPage = (): JSX.Element => {
 	const [isMessage, setIsMessage] = useState(false);
 	const [loadState, setLoadState] = useState({
 		icon: <FaBox />,
-		info: 'Nenhuma postagem corresponde a sua pesquisa.',
+		info: 'Nenhuma postagem para mostrar.',
 	});
 
 	// gets data from the server
@@ -58,11 +57,16 @@ const Filters: NextPage = (): JSX.Element => {
 		try {
 			setIsMessage(false);
 			setIsLoading(true);
+			const category = getURL().split('?')[1].split('&')[0].split('=')[1];
+
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}`,
+				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}&category=${category}`,
 			});
 			setData(response.data);
+			if (response.data.posts.length === 0) {
+				setIsMessage(true);
+			}
 			setIsLoading(false);
 		} catch (err: any) {
 			console.log(err);
@@ -84,8 +88,8 @@ const Filters: NextPage = (): JSX.Element => {
 	};
 
 	useEffect(() => {
-		const params = getURL().split('?')[1].slice(5);
-		fetcher(params);
+		const page = getURL().split('?')[1].split('&')[1].split('=')[1];
+		fetcher(page);
 	}, []);
 
 	return (
@@ -97,7 +101,7 @@ const Filters: NextPage = (): JSX.Element => {
 				<section className='upper-container'>
 					<h2>
 						<FaSortAlphaDown />
-						<span>Receitas de {}</span>
+						<span>Receitas por categoria</span>
 					</h2>
 				</section>
 				<article className='base-container'>
