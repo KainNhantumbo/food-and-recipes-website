@@ -4,6 +4,8 @@ import AppContext from '../context/AppContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { AppContainer as Container } from '../styles/app';
+import axios from 'axios';
+import { base_api_url } from '../utils/utils';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [privacyAdvisor, setprivacyAdvisor] = useState<boolean>();
@@ -28,6 +30,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 		} else {
 			setprivacyAdvisor(() => false);
 		}
+
+		// sends a visitor count to server
+		axios({
+			method: 'patch',
+			url: `${base_api_url}/recipes/visitors`,
+			data: { count: 1 },
+		}).catch((err) => {
+			console.log(err.response.message);
+		});
 	}, []);
 
 	return (

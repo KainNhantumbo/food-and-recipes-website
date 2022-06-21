@@ -36,7 +36,6 @@ const Contact = () => {
 	// sends email
 	const emailSender = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(formData);
 
 		// email sender transport
 		// emailjs
