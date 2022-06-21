@@ -8,11 +8,21 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaTimes, FaUser } from 'react-icons/fa';
-import { BiAlarm, BiLoader, BiRestaurant, BiSearch } from 'react-icons/bi';
+import { FaBox, FaFeather, FaTimes, FaUser } from 'react-icons/fa';
+import {
+	BiAlarm,
+	BiDotsHorizontal,
+	BiLoader,
+	BiLoaderAlt,
+	BiLoaderCircle,
+	BiRestaurant,
+	BiSearch,
+} from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 import Error from 'next/error';
 import axios from 'axios';
+import { Loading } from '../components/Loading';
+import { HiDownload } from 'react-icons/hi';
 
 interface PostData {
 	cook_time: string;
@@ -42,9 +52,14 @@ const Home: NextPage<Props> = ({ initialData }) => {
 	const [data, setData] = useState<dataProps>(initialData);
 	const posts = data.posts;
 
+	const [searchValue, setSearchValue] = useState('');
 	const [isClearButton, setIsClearButton] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [searchValue, setSearchValue] = useState('');
+	const [isMessage, setIsMessage] = useState(true);
+	const [LoadData, setLoadData] = useState({
+		icon: <BiLoaderCircle />,
+		message: '',
+	});
 
 	async function searchData(e: FormEvent<HTMLFormElement>) {
 		try {
@@ -60,6 +75,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 		}
 	}
 
+	const displayMessages = (message: string, icon: JSX.Element): void => {};
 	return (
 		<>
 			<HeadPage />
@@ -94,8 +110,10 @@ const Home: NextPage<Props> = ({ initialData }) => {
 					</form>
 				</section>
 				<div className='main-container'>
-					{isLoading ? (
-					<div></div>
+					{!isMessage ? (
+						<div></div>
+					) : isLoading ? (
+						<Loading />
 					) : (
 						<article className='posts-container'>
 							{posts.map(
