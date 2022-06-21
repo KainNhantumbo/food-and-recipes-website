@@ -44,7 +44,8 @@ export const HeaderContainer = styled.header`
 
 		svg {
 			width: 25px;
-			height: 25px; pointer-events: none;
+			height: 25px;
+			pointer-events: none;
 		}
 	}
 

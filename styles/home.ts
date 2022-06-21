@@ -14,8 +14,22 @@ export const HomeContainer = styled.main`
 	border-radius: 30px;
 	margin-bottom: 50px;
 
-	.slide-container {
-		
+	.empty-message {
+		display: grid;
+		place-content: center;
+		min-height: 70vh;
+		text-align: center;
+
+		h2 {
+			font-size: 1.2rem;
+			font-weight: 500;
+		}
+
+		svg {
+			width: 80px;
+			height: 80px;
+			color: rgb(${({ theme }) => theme.secondary});
+		}
 	}
 
 	.toolbar-container {

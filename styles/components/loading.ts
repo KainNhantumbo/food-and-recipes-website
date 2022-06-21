@@ -3,14 +3,13 @@ import styled from 'styled-components';
 export const LoadingContainer = styled.section`
 	display: grid;
 	place-content: center;
-	min-height: 50vh;
+	min-height: 70vh;
 
 	.loading-wrapper {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 20px;
-		padding: 50px 0;
 
 		svg {
 			width: 80px;

@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaBox, FaFeather, FaTimes, FaUser } from 'react-icons/fa';
+import { FaBox, FaFeather, FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import {
 	BiAlarm,
 	BiDotsHorizontal,
@@ -46,36 +46,43 @@ interface dataProps {
 
 const Home: NextPage<Props> = ({ initialData }) => {
 	const router = useRouter();
+	const [searchValue, setSearchValue] = useState('');
+	const [isClearButton, setIsClearButton] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [isMessage, setIsMessage] = useState(true);
+	const [loadState, setLoadState] = useState({
+		icon: <FaWind />,
+		info: 'Nenhuma postagem corresponde a sua pesquisa.',
+	});
 	if (!initialData) {
 		return <Error statusCode={500} />;
 	}
 	const [data, setData] = useState<dataProps>(initialData);
 	const posts = data.posts;
 
-	const [searchValue, setSearchValue] = useState('');
-	const [isClearButton, setIsClearButton] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-	const [isMessage, setIsMessage] = useState(true);
-	const [LoadData, setLoadData] = useState({
-		icon: <BiLoaderCircle />,
-		message: '',
-	});
-
-	async function searchData(e: FormEvent<HTMLFormElement>) {
+	async function searchData(e: FormEvent<HTMLFormElement>): Promise<void> {
 		try {
 			e.preventDefault();
+			setIsLoading(true)
 			const response = await axios({
 				method: 'get',
 				url: `${base_api_url}/recipes/posts?title=${searchValue}`,
 			});
 
 			setData(response.data);
+			if(response.data.posts.length === 0) {
+				setIsMessage(true)
+			}
+			setIsLoading(false)
 		} catch (err) {
+			setIsLoading(false)
 			console.log(err);
+			setIsMessage(true)
 		}
 	}
 
-	const displayMessages = (message: string, icon: JSX.Element): void => {};
+
+
 	return (
 		<>
 			<HeadPage />
@@ -110,8 +117,13 @@ const Home: NextPage<Props> = ({ initialData }) => {
 					</form>
 				</section>
 				<div className='main-container'>
-					{!isMessage ? (
-						<div></div>
+					{isMessage ? (
+						<article className='empty-message'>
+						<section>
+						{loadState.icon}
+							<h2>{loadState.info}</h2>
+						</section>
+					</article>
 					) : isLoading ? (
 						<Loading />
 					) : (
