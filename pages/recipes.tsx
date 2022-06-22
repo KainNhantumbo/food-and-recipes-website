@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { FaBox, FaSortAlphaDown } from 'react-icons/fa';
+import { FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
@@ -15,7 +15,7 @@ import {
 	BiLeftArrowAlt,
 	BiRightArrowAlt,
 } from 'react-icons/bi';
-import { HiArrowCircleRight } from 'react-icons/hi';
+import { HiAnnotation, HiArrowCircleRight } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
@@ -28,9 +28,8 @@ interface PostData {
 	_id: string;
 	title: string;
 	image_alt: string;
-	image_url: string;
 	description: string;
-	image: string;
+	image: {url: string, id: string};
 }
 
 interface dataProps {
@@ -44,13 +43,13 @@ const Recipes: NextPage = (): JSX.Element => {
 	const [data, setData] = useState<dataProps>({ results: 0, posts: [] });
 
 	const posts = data.posts;
-	const pages = _.range(1, Math.ceil(data.results / 5 + 1));
+	const pages = _.range(1, Math.ceil(data.results / 5));
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
 	const [loadState, setLoadState] = useState({
-		icon: <FaBox />,
-		info: 'Nenhuma postagem corresponde a sua pesquisa.',
+		icon: <HiAnnotation />,
+		info: 'Não há mais publicações para mostrar.',
 	});
 
 	// gets data from the server
@@ -64,6 +63,9 @@ const Recipes: NextPage = (): JSX.Element => {
 			});
 			setData(response.data);
 			setIsLoading(false);
+			if (response.data.posts.length === 0) {
+				setIsMessage(true);
+			}
 		} catch (err: any) {
 			console.log(err);
 			setIsLoading(false);
@@ -111,7 +113,7 @@ const Recipes: NextPage = (): JSX.Element => {
 					) : isLoading ? (
 						<Loading />
 					) : (
-						posts.map(({ _id, image, image_alt, title, description }) => {
+						posts.map(({ _id, image_alt, title, description, image }) => {
 							return (
 								<motion.section
 									whileTap={{ scale: 0.95 }}
@@ -120,7 +122,7 @@ const Recipes: NextPage = (): JSX.Element => {
 								>
 									<HiArrowCircleRight className='arrow-icon' />
 									<Link href={`/post/${_id}`}>
-										<img title={image_alt} src={image} />
+										<img title={image_alt} src={image.url} />
 									</Link>
 									<Link href={`/post/${_id}`}>
 										<div className='info-container'>

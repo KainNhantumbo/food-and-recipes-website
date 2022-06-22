@@ -31,13 +31,12 @@ interface PostData {
 	title: string;
 	history: string;
 	image_alt: string;
-	image_url: string;
 	instructions: string;
 	serving_yield: string;
 	category: string;
 	description: string;
 	ingredients: string;
-	image: string;
+	image: {url: string, id: string};
 }
 
 interface Props {
@@ -103,7 +102,7 @@ const Post: NextPage<Props> = ({ data }): JSX.Element => {
 							transition={{ type: 'spring', duration: 0.5 }}
 							animate={{ scale: 1 }}
 						>
-							<img src={post.image} alt={post.image_alt} />
+							<img src={post.image.url} alt={post.image_alt} />
 						</motion.section>
 					</section>
 

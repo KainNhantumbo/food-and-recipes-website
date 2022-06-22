@@ -27,10 +27,9 @@ interface PostData {
 	cook_time: string;
 	title: string;
 	image_alt: string;
-	image_url: string;
 	serving_yield: string;
 	description: string;
-	image: string;
+	image: { url: string; id: string };
 	_id: string;
 }
 
@@ -225,14 +224,13 @@ const Home: NextPage<Props> = ({ initialData }) => {
 									cook_time,
 									description,
 									serving_yield,
-									image,
 									image_alt,
-									image_url,
+									image,
 								}) => (
 									<Link key={_id} href={`/post/${_id}`}>
 										<section className='post'>
 											<section className='image'>
-												<img src={image} alt={image_alt} />
+												<img src={image.url} alt={image_alt} />
 											</section>
 											<section className='details-container'>
 												<h3 className='title' title={title}>

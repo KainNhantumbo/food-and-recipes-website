@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { FaBox, FaSortAlphaDown } from 'react-icons/fa';
+import { FaSortAlphaDown } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
@@ -14,7 +14,7 @@ import {
 	BiLeftArrowAlt,
 	BiRightArrowAlt,
 } from 'react-icons/bi';
-import { HiArrowCircleRight } from 'react-icons/hi';
+import { HiAnnotation, HiArrowCircleRight } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
@@ -27,11 +27,9 @@ interface PostData {
 	_id: string;
 	title: string;
 	image_alt: string;
-	image_url: string;
 	description: string;
-	image: string;
+	image: {url: string, id: string};
 }
-
 interface dataProps {
 	results: number;
 	posts: PostData[];
@@ -44,11 +42,12 @@ const Filters: NextPage = (): JSX.Element => {
 
 	const posts = data.posts;
 	const pages = _.range(1, Math.ceil(data.results / 5));
+	const category = getURL().split('?')[1].split('&')[0].split('=')[1];
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
 	const [loadState, setLoadState] = useState({
-		icon: <FaBox />,
+		icon: <HiAnnotation />,
 		info: 'Nenhuma postagem para mostrar.',
 	});
 
@@ -57,7 +56,6 @@ const Filters: NextPage = (): JSX.Element => {
 		try {
 			setIsMessage(false);
 			setIsLoading(true);
-			const category = getURL().split('?')[1].split('&')[0].split('=')[1];
 
 			const response = await axios({
 				method: 'get',
@@ -124,7 +122,7 @@ const Filters: NextPage = (): JSX.Element => {
 								>
 									<HiArrowCircleRight className='arrow-icon' />
 									<Link href={`/post/${_id}`}>
-										<img title={image_alt} src={image} />
+										<img title={image_alt} src={image.url} />
 									</Link>
 									<Link href={`/post/${_id}`}>
 										<div className='info-container'>
@@ -152,7 +150,7 @@ const Filters: NextPage = (): JSX.Element => {
 							onClick={() => {
 								if (pageIndex === 1) return;
 								setPageIndex(pageIndex - 1);
-								router.push(`/recipes?page=${pageIndex - 1}`);
+								router.push(`/filters?category=${category}&page=${pageIndex - 1}`);
 								fetcher(pageIndex - 1);
 							}}
 						>
@@ -169,7 +167,7 @@ const Filters: NextPage = (): JSX.Element => {
 								whileTap={{ scale: 0.9 }}
 								whileHover={{ scale: 1.2 }}
 								onClick={() => {
-									router.push(`/recipes?page=${page}`);
+									router.push(`/filters?category=${category}&page=${page}`);
 									setPageIndex(page);
 									fetcher(page);
 								}}
@@ -184,7 +182,7 @@ const Filters: NextPage = (): JSX.Element => {
 							onClick={() => {
 								if (pageIndex === Math.ceil(data.results / 10)) return;
 								setPageIndex(pageIndex + 1);
-								router.push(`/recipes?page=${pageIndex + 1}`);
+								router.push(`/filters?category=${category}&page=${pageIndex + 1}`);
 								fetcher(pageIndex + 1);
 							}}
 						>
