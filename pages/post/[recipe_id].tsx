@@ -1,5 +1,4 @@
 import { NextPage, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
 import HeadPage from '../../components/Head';
 import { PostContainer as Container } from '../../styles/post';
 import Header from '../../components/Header';
@@ -46,12 +45,10 @@ interface Props {
 }
 
 const Post: NextPage<Props> = ({ data }): JSX.Element => {
-	const router = useRouter();
 	if (!data) {
 		return <Error statusCode={500} />;
 	}
 	const post = data.post;
-	console.log(post);
 
 	return (
 		<>

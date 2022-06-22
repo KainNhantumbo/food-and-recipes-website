@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
+import { CategoriesContainer as Container } from '../styles/categories';
 import { BiCategoryAlt, BiRestaurant } from 'react-icons/bi';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
-import { CategoriesContainer as Container } from '../styles/categories';
 import cakes from '../assets/cakes.jpg';
 import cocktails from '../assets/cocktails.jpg';
 import cupcakes from '../assets/cupcakes.jpg';

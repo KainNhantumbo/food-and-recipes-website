@@ -11,7 +11,7 @@ const PageLayout: FC = (): JSX.Element => {
 			<section className='fluent-buttons'>
 				<div>
 					<motion.button
-						whileTap={{ scale: 0.5 }}
+						whileTap={{ scale: 0.7 }}
 						transition={{ type: 'spring', duration: 0.5 }}
 						title='Trocar o tema'
 						onClick={themeSwitcher}
@@ -21,7 +21,7 @@ const PageLayout: FC = (): JSX.Element => {
 					<motion.button
 						title='Ir ao topo'
 						onClick={slidePageUp}
-						whileTap={{ scale: 0.5 }}
+						whileTap={{ scale: 0.7 }}
 						transition={{ type: 'spring', duration: 0.5 }}
 					>
 						<BiUpArrowAlt />

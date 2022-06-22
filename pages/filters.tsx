@@ -117,7 +117,11 @@ const Filters: NextPage = (): JSX.Element => {
 					) : (
 						posts.map(({ _id, image, image_alt, title, description }) => {
 							return (
-								<section className='recipe' key={_id}>
+								<motion.section
+									whileTap={{ scale: 0.95 }}
+									className='recipe'
+									key={_id}
+								>
 									<HiArrowCircleRight className='arrow-icon' />
 									<Link href={`/post/${_id}`}>
 										<img title={image_alt} src={image} />
@@ -134,7 +138,7 @@ const Filters: NextPage = (): JSX.Element => {
 											</h4>
 										</div>
 									</Link>
-								</section>
+								</motion.section>
 							);
 						})
 					)}
@@ -143,8 +147,8 @@ const Filters: NextPage = (): JSX.Element => {
 				<section className='pagination-container'>
 					<section className='pagination'>
 						<motion.button
-							whileTap={{ scale: 0.7 }}
-							transition={{ type: 'spring', duration: 0.5 }}
+							whileTap={{ scale: 0.9 }}
+							whileHover={{ scale: 1.2 }}
 							onClick={() => {
 								if (pageIndex === 1) return;
 								setPageIndex(pageIndex - 1);
@@ -162,8 +166,8 @@ const Filters: NextPage = (): JSX.Element => {
 									borderColor:
 										page === pageIndex ? 'rgb(77, 124, 95)' : 'transparent',
 								}}
-								whileTap={{ scale: 0.7 }}
-								transition={{ type: 'spring', duration: 0.5 }}
+								whileTap={{ scale: 0.9 }}
+								whileHover={{ scale: 1.2 }}
 								onClick={() => {
 									router.push(`/recipes?page=${page}`);
 									setPageIndex(page);
@@ -175,8 +179,8 @@ const Filters: NextPage = (): JSX.Element => {
 						))}
 
 						<motion.button
-							whileTap={{ scale: 0.7 }}
-							transition={{ type: 'spring', duration: 0.5 }}
+							whileTap={{ scale: 0.9 }}
+							whileHover={{ scale: 1.2 }}
 							onClick={() => {
 								if (pageIndex === Math.ceil(data.results / 10)) return;
 								setPageIndex(pageIndex + 1);

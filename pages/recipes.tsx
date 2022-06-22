@@ -60,7 +60,7 @@ const Recipes: NextPage = (): JSX.Element => {
 			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}`,
+				url: `${base_api_url}/recipes/posts?fields=description,title,image,image_alt,image_url&page=${page}&sort=title`,
 			});
 			setData(response.data);
 			setIsLoading(false);
@@ -113,7 +113,11 @@ const Recipes: NextPage = (): JSX.Element => {
 					) : (
 						posts.map(({ _id, image, image_alt, title, description }) => {
 							return (
-								<section className='recipe' key={_id}>
+								<motion.section
+									whileTap={{ scale: 0.95 }}
+									className='recipe'
+									key={_id}
+								>
 									<HiArrowCircleRight className='arrow-icon' />
 									<Link href={`/post/${_id}`}>
 										<img title={image_alt} src={image} />
@@ -130,7 +134,7 @@ const Recipes: NextPage = (): JSX.Element => {
 											</h4>
 										</div>
 									</Link>
-								</section>
+								</motion.section>
 							);
 						})
 					)}
@@ -139,8 +143,8 @@ const Recipes: NextPage = (): JSX.Element => {
 				<section className='pagination-container'>
 					<section className='pagination'>
 						<motion.button
-							whileTap={{ scale: 0.7 }}
-							transition={{ type: 'spring', duration: 0.5 }}
+							whileTap={{ scale: 0.9 }}
+							whileHover={{ scale: 1.2 }}
 							onClick={() => {
 								if (pageIndex === 1) return;
 								setPageIndex(pageIndex - 1);
@@ -158,8 +162,8 @@ const Recipes: NextPage = (): JSX.Element => {
 									borderColor:
 										page === pageIndex ? 'rgb(77, 124, 95)' : 'transparent',
 								}}
-								whileTap={{ scale: 0.7 }}
-								transition={{ type: 'spring', duration: 0.5 }}
+								whileTap={{ scale: 0.9 }}
+								whileHover={{ scale: 1.2 }}
 								onClick={() => {
 									router.push(`/recipes?page=${page}`);
 									setPageIndex(page);
@@ -171,8 +175,8 @@ const Recipes: NextPage = (): JSX.Element => {
 						))}
 
 						<motion.button
-							whileTap={{ scale: 0.7 }}
-							transition={{ type: 'spring', duration: 0.5 }}
+							whileTap={{ scale: 0.9 }}
+							whileHover={{ scale: 1.2 }}
 							onClick={() => {
 								if (pageIndex === Math.ceil(data.results / 10)) return;
 								setPageIndex(pageIndex + 1);

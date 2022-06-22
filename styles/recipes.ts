@@ -73,7 +73,6 @@ export const RecipesContainer = styled.main`
 
 			:hover {
 				box-shadow: 0 0 20px rgba(${({ theme }) => theme.shadows}, 0.6);
-				transition: all 200ms ease;
 			}
 
 			.arrow-icon {

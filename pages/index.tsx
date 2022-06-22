@@ -10,7 +10,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import { VscError } from 'react-icons/vsc';
-
 import { BiAlarm, BiErrorCircle, BiRestaurant, BiSearch } from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 import Error from 'next/error';
@@ -205,7 +204,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 														<h4>Tempo</h4>
 														<h5>
 															<BiAlarm />
-															<span>14h 30min</span>
+															<span>{cook_time}</span>
 														</h5>
 													</section>
 												</div>
