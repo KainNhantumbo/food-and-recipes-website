@@ -213,4 +213,46 @@ export const HomeContainer = styled.main`
 			}
 		}
 	}
+
+	.share-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		flex-direction: column;
+
+		.btn-container {
+			display: flex;
+			gap: 15px;
+			justify-content: space-evenly;
+
+			div {
+				padding: 3px 10px;
+				background: rgb(${({ theme }) => theme.secondary});
+				color: rgb(${({ theme }) => theme.text});
+				border-radius: 15px;
+				display: grid;
+				place-content: center;
+				cursor: pointer;
+				position: relative;
+
+				.text {
+					padding-left: 25px;
+				}
+
+				.icon0, .icon1 {
+					position: absolute;
+					top: 3px;
+					left: 2px;
+					width: 20px;
+					height: 20px;
+				}
+
+				.icon1 {
+					left: 8px;
+					top: 5px;
+				}
+			}
+		}
+	}
 `;

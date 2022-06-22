@@ -8,13 +8,25 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
+import { FaBoxOpen, FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import { VscError } from 'react-icons/vsc';
-import { BiAlarm, BiErrorCircle, BiRestaurant, BiSearch } from 'react-icons/bi';
+import {
+	BiAlarm,
+	BiArchive,
+	BiBox,
+	BiDownArrow,
+	BiErrorCircle,
+	BiFilterAlt,
+	BiRestaurant,
+	BiSearch,
+	BiWind,
+} from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 import Error from 'next/error';
 import axios from 'axios';
 import { Loading } from '../components/Loading';
+import { motion } from 'framer-motion';
+import { HiAnnotation } from 'react-icons/hi';
 
 interface PostData {
 	cook_time: string;
@@ -42,6 +54,10 @@ const Home: NextPage<Props> = ({ initialData }) => {
 	const [isClearButton, setIsClearButton] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
+	const [pageCounter, setPageCounter] = useState(1);
+	const [loadButtonState, setloadButtonState] = useState(
+		'Carregar mais postagens'
+	);
 	const [loadState, setLoadState] = useState({
 		icon: <FaWind />,
 		info: 'Nenhuma postagem corresponde a sua pesquisa.',
@@ -60,7 +76,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&title=${searchValue}`,
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&title=${searchValue}&page=1`,
 			});
 			setData(response.data);
 			if (response.data.posts.length === 0) {
@@ -93,7 +109,41 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url`,
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=${pageCounter}`,
+			});
+			setData(response.data);
+			if (response.data.posts.length === 0) {
+				setIsMessage(true);
+			}
+			setIsLoading(false);
+		} catch (err: any) {
+			console.log(err.message);
+			setIsLoading(false);
+			setIsMessage(true);
+
+			if (err.code === 'ERR_NETWORK') {
+				setLoadState(() => ({
+					icon: <BiErrorCircle />,
+					info: 'Erro de conexão. Veja as suas configurações de internet.',
+				}));
+			} else {
+				setLoadState(() => ({
+					icon: <VscError />,
+					info: 'Parece que algo está errado. Tente recarregar a página.',
+				}));
+			}
+		}
+	};
+
+	const loadMorePosts = async (): Promise<void> => {
+		try {
+			setIsMessage(false);
+			setIsLoading(true);
+			const response = await axios({
+				method: 'get',
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=${
+					pageCounter + 1
+				}`,
 			});
 			setData(response.data);
 			if (response.data.posts.length === 0) {
@@ -216,6 +266,26 @@ const Home: NextPage<Props> = ({ initialData }) => {
 						</article>
 					)}
 				</div>
+				<section className='share-container'>
+					<section className='btn-container'>
+						<motion.div whileTap={{ scale: 0.8 }} whileHover={{ scale: 1.1 }}>
+							<motion.span
+								initial={{ y: 1 }}
+								transition={{ type: 'tween', repeat: Infinity, duration: 0.8 }}
+								animate={{ y: -1 }}
+							>
+								<BiDownArrow className='icon0' />
+							</motion.span>
+							<span className='text'>Carregar mais publicações</span>
+						</motion.div>
+						<motion.div whileHover={{ scale: 1.1 }}>
+							<motion.span>
+								<HiAnnotation className='icon1' />
+							</motion.span>
+							<span className='text'>Não há mais publicações</span>
+						</motion.div>
+					</section>
+				</section>
 			</Container>
 			<Footer />
 		</>
@@ -225,7 +295,7 @@ const Home: NextPage<Props> = ({ initialData }) => {
 export async function getServerSideProps(context: NextPageContext) {
 	try {
 		const response = await fetch(
-			`${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url`
+			`${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=1`
 		);
 		const initialData = await response.json();
 
