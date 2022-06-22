@@ -1,26 +1,26 @@
 import { NextPage } from 'next';
-import { FaSortAlphaDown } from 'react-icons/fa';
+import Link from 'next/link';
 import Footer from '../components/Footer';
 import HeadPage from '../components/Head';
 import Header from '../components/Header';
 import { RecipesContainer as Container } from '../styles/recipes';
-import Link from 'next/link';
 import PageLayout from '../components/PageLayout';
 import { base_api_url } from '../utils/utils';
 import { useRouter } from 'next/router';
+import { VscError } from 'react-icons/vsc';
+import { FaSortAlphaDown } from 'react-icons/fa';
+import { HiAnnotation, HiArrowCircleRight } from 'react-icons/hi';
 import {
 	BiDotsVerticalRounded,
 	BiErrorCircle,
 	BiLeftArrowAlt,
 	BiRightArrowAlt,
 } from 'react-icons/bi';
-import { HiAnnotation, HiArrowCircleRight } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { getURL } from 'next/dist/shared/lib/utils';
 import _ from 'lodash';
-import { VscError } from 'react-icons/vsc';
 import { Loading } from '../components/Loading';
 
 interface PostData {
@@ -39,11 +39,9 @@ const Filters: NextPage = (): JSX.Element => {
 	const router = useRouter();
 	const [pageIndex, setPageIndex] = useState(1);
 	const [data, setData] = useState<dataProps>({ results: 0, posts: [] });
-
 	const posts = data.posts;
 	const pages = _.range(1, Math.ceil(data.results / 5));
 	const category = getURL().split('?')[1].split('&')[0].split('=')[1];
-
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
 	const [loadState, setLoadState] = useState({
@@ -70,7 +68,6 @@ const Filters: NextPage = (): JSX.Element => {
 			console.log(err);
 			setIsLoading(false);
 			setIsMessage(true);
-
 			if (err.code === 'ERR_NETWORK') {
 				setLoadState(() => ({
 					icon: <BiErrorCircle />,

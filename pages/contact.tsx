@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { motion } from 'framer-motion';
 import { ConfirmDialog } from '../components/Modal';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
 	const [messageStatus, setMessageStatus] = useState(
@@ -38,23 +39,25 @@ const Contact = () => {
 		e.preventDefault();
 
 		// email sender transport
-		// emailjs
-		// 	.send(
-		// 		'service_sjw9i8b',
-		// 		'template_eso630j',
-		// 		formData,
-		// 		'z3FUpU83GBFJyGXVF'
-		// 	)
-		// 	.then(
-		// 		(result) => {
-		// 			console.log(result.text);
-		// 			alert('Message sent sucessfully!');
-		// 		},
-		// 		(error) => {
-		// 			console.log(error.text);
-		// 			alert('An error ocurred, try again later!');
-		// 		}
-		// 	);
+		emailjs
+			.send(
+				'service_sjw9i8b',
+				'template_eso630j',
+				formData,
+				'z3FUpU83GBFJyGXVF'
+			)
+			.then(
+				(result) => {
+					console.log(result.text);
+					setMessageStatus('Mensagem enviada com sucesso!');
+				},
+				(error) => {
+					console.log(error.text);
+					setMessageStatus(
+						'Oops! Parece que algo deu errado. Por favor, tente novamente.'
+					);
+				}
+			);
 	};
 
 	return (

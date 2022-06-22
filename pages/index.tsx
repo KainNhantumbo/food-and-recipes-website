@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import PageLayout from '../components/PageLayout';
 import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import { VscError } from 'react-icons/vsc';
@@ -79,7 +78,6 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			console.log(err.message);
 			setIsLoading(false);
 			setIsMessage(true);
-
 			if (err.code === 'ERR_NETWORK') {
 				setLoadState(() => ({
 					icon: <BiErrorCircle />,
@@ -154,7 +152,6 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			console.log(err.message);
 			setIsLoading(false);
 			setIsMessage(true);
-
 			if (err.code === 'ERR_NETWORK') {
 				setLoadState(() => ({
 					icon: <BiErrorCircle />,

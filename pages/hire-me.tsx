@@ -2,11 +2,14 @@ import { NextPage } from 'next';
 import { HireContainer } from '../styles/hire-me';
 import { FaJsSquare } from 'react-icons/fa';
 import { SiTypescript } from 'react-icons/si';
+import HeadPage from '../components/Head';
+import Header from '../components/Header';
+import PageLayout from '../components/PageLayout';
+import Footer from '../components/Footer';
 import {
 	BiCodeAlt,
 	BiConversation,
 	BiEnvelope,
-	BiHelpCircle,
 	BiPlanet,
 } from 'react-icons/bi';
 import {
@@ -16,10 +19,6 @@ import {
 	DiReact,
 	DiSass,
 } from 'react-icons/di';
-import HeadPage from '../components/Head';
-import Header from '../components/Header';
-import PageLayout from '../components/PageLayout';
-import Footer from '../components/Footer';
 
 const HireMe: NextPage = (): JSX.Element => {
 	return (
