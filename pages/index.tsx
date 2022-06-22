@@ -1,5 +1,4 @@
 import type { NextPage, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
 import HeadPage from '../components/Head';
 import { HomeContainer as Container } from '../styles/home';
 import Header from '../components/Header';
@@ -8,18 +7,14 @@ import Footer from '../components/Footer';
 import { base_api_url } from '../utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaBoxOpen, FaTimes, FaUser, FaWind } from 'react-icons/fa';
+import { FaTimes, FaUser, FaWind } from 'react-icons/fa';
 import { VscError } from 'react-icons/vsc';
 import {
 	BiAlarm,
-	BiArchive,
-	BiBox,
 	BiDownArrow,
 	BiErrorCircle,
-	BiFilterAlt,
 	BiRestaurant,
 	BiSearch,
-	BiWind,
 } from 'react-icons/bi';
 import { FormEvent, useState } from 'react';
 import Error from 'next/error';
@@ -49,15 +44,12 @@ interface dataProps {
 }
 
 const Home: NextPage<Props> = ({ initialData }) => {
-	const router = useRouter();
 	const [searchValue, setSearchValue] = useState('');
 	const [isClearButton, setIsClearButton] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
 	const [pageCounter, setPageCounter] = useState(1);
-	const [loadButtonState, setloadButtonState] = useState(
-		'Carregar mais postagens'
-	);
+	const [hasMorePosts, setHasMorePosts] = useState(true);
 	const [loadState, setLoadState] = useState({
 		icon: <FaWind />,
 		info: 'Nenhuma postagem corresponde a sua pesquisa.',
@@ -76,12 +68,13 @@ const Home: NextPage<Props> = ({ initialData }) => {
 			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&title=${searchValue}&page=1`,
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&title=${searchValue}`,
 			});
 			setData(response.data);
 			if (response.data.posts.length === 0) {
 				setIsMessage(true);
 			}
+			setHasMorePosts(false);
 			setIsLoading(false);
 		} catch (err: any) {
 			console.log(err.message);
@@ -107,9 +100,11 @@ const Home: NextPage<Props> = ({ initialData }) => {
 		try {
 			setIsMessage(false);
 			setIsLoading(true);
+			setPageCounter(1);
+			setHasMorePosts(true);
 			const response = await axios({
 				method: 'get',
-				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=${pageCounter}`,
+				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=${1}`,
 			});
 			setData(response.data);
 			if (response.data.posts.length === 0) {
@@ -135,21 +130,27 @@ const Home: NextPage<Props> = ({ initialData }) => {
 		}
 	};
 
+	// makes a request to get more posts
 	const loadMorePosts = async (): Promise<void> => {
 		try {
-			setIsMessage(false);
-			setIsLoading(true);
 			const response = await axios({
 				method: 'get',
 				url: `${base_api_url}/recipes/posts?fields=cook_time,serving_yield,description,title,image,image_alt,image_url&page=${
 					pageCounter + 1
 				}`,
 			});
-			setData(response.data);
-			if (response.data.posts.length === 0) {
-				setIsMessage(true);
+			setPageCounter((prevCount) => prevCount + 1);
+			const newPosts = response.data.posts;
+			setData((prevData) => ({
+				...prevData,
+				posts: [...prevData.posts, ...newPosts],
+			}));
+
+			if (data.posts.length === data.results) {
+				setHasMorePosts(false);
+			} else {
+				setHasMorePosts(true);
 			}
-			setIsLoading(false);
 		} catch (err: any) {
 			console.log(err.message);
 			setIsLoading(false);
@@ -268,22 +269,33 @@ const Home: NextPage<Props> = ({ initialData }) => {
 				</div>
 				<section className='share-container'>
 					<section className='btn-container'>
-						<motion.div whileTap={{ scale: 0.8 }} whileHover={{ scale: 1.1 }}>
-							<motion.span
-								initial={{ y: 1 }}
-								transition={{ type: 'tween', repeat: Infinity, duration: 0.8 }}
-								animate={{ y: -1 }}
+						{hasMorePosts ? (
+							<motion.div
+								whileTap={{ scale: 0.8 }}
+								whileHover={{ scale: 1.1 }}
+								onClick={loadMorePosts}
 							>
-								<BiDownArrow className='icon0' />
-							</motion.span>
-							<span className='text'>Carregar mais publicações</span>
-						</motion.div>
-						<motion.div whileHover={{ scale: 1.1 }}>
-							<motion.span>
-								<HiAnnotation className='icon1' />
-							</motion.span>
-							<span className='text'>Não há mais publicações</span>
-						</motion.div>
+								<motion.span
+									initial={{ y: 1 }}
+									transition={{
+										type: 'tween',
+										repeat: Infinity,
+										duration: 0.8,
+									}}
+									animate={{ y: -1 }}
+								>
+									<BiDownArrow className='icon0' />
+								</motion.span>
+								<span className='text'>Carregar mais publicações</span>
+							</motion.div>
+						) : (
+							<motion.div whileHover={{ scale: 1.1 }}>
+								<span>
+									<HiAnnotation className='icon1' />
+								</span>
+								<span className='text'>Não há mais publicações</span>
+							</motion.div>
+						)}
 					</section>
 				</section>
 			</Container>

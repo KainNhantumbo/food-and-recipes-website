@@ -44,7 +44,7 @@ const Recipes: NextPage = (): JSX.Element => {
 	const [data, setData] = useState<dataProps>({ results: 0, posts: [] });
 
 	const posts = data.posts;
-	const pages = _.range(1, Math.ceil(data.results / 5));
+	const pages = _.range(1, Math.ceil(data.results / 5 + 1));
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [isMessage, setIsMessage] = useState(false);
@@ -178,7 +178,7 @@ const Recipes: NextPage = (): JSX.Element => {
 							whileTap={{ scale: 0.9 }}
 							whileHover={{ scale: 1.2 }}
 							onClick={() => {
-								if (pageIndex === Math.ceil(data.results / 10)) return;
+								if (pageIndex === Math.ceil(data.results / 5)) return;
 								setPageIndex(pageIndex + 1);
 								router.push(`/recipes?page=${pageIndex + 1}`);
 								fetcher(pageIndex + 1);

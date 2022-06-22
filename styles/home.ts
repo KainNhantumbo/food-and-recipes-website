@@ -129,6 +129,7 @@ export const HomeContainer = styled.main`
 				width: 350px;
 				grid-template-columns: 150px calc(100% - 150px);
 				border-radius: 12px;
+				direction: ltr;
 				height: 160px;
 				position: relative;
 				background: rgb(${({ theme }) => theme.backgroundAlt});
@@ -236,6 +237,9 @@ export const HomeContainer = styled.main`
 				cursor: pointer;
 				position: relative;
 
+				span, svg {
+					pointer-events: none;
+				}
 				.text {
 					padding-left: 25px;
 				}
@@ -249,7 +253,7 @@ export const HomeContainer = styled.main`
 				}
 
 				.icon1 {
-					left: 8px;
+					left: 10px;
 					top: 5px;
 				}
 			}
