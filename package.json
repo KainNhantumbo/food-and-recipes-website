@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.6.2",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "framer-motion": "^6.3.11",
     "lodash": "^4.17.21",
     "next": "14.2.30",
